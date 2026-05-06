@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import CountUp from "../pertemuan 7/CountUp.jsx";
+import CountUp from "../_archive/pertemuan 7/CountUp.jsx";
 
 const MotionFlex = motion(Flex);
 

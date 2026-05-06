@@ -14,10 +14,13 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react";
-import { MdPerson, MdLock, MdLocalPharmacy } from "react-icons/md";
+import { MdPerson, MdLock, MdLocalPharmacy, MdHealing } from "react-icons/md";
 import axios from "axios";
 
 const API_URL = "https://dummyjson.com/auth/login";
+
+// Mode development: true = tanpa API (mock), false = dengan API real
+const MOCK_LOGIN = true;
 
 export default function Login() {
   const [dataForm, setDataForm] = useState({
@@ -49,6 +52,32 @@ export default function Login() {
 
     setLoading(true);
 
+    // Mock login untuk development (tanpa API)
+    if (MOCK_LOGIN) {
+      setTimeout(() => {
+        // Cek credentials demo
+        if (username === "emilys" && password === "emilyspass") {
+          const mockToken = "mock-token-12345";
+          const mockUser = {
+            id: 1,
+            username: "emilys",
+            email: "emily@example.com",
+            firstName: "Emily",
+            lastName: "Smith",
+          };
+
+          localStorage.setItem("adminToken", mockToken);
+          localStorage.setItem("adminUser", JSON.stringify(mockUser));
+          navigate("/admin/beranda");
+        } else {
+          setError("Username atau password salah. (Demo: emilys / emilyspass)");
+        }
+        setLoading(false);
+      }, 1000); // Simulasi delay 1 detik
+      return;
+    }
+
+    // Real API login (production)
     try {
       const response = await axios.post(
         API_URL,
@@ -81,7 +110,7 @@ export default function Login() {
       if (err.response?.status === 400 || err.response?.status === 401) {
         setError("Username atau password salah.");
       } else if (err.code === "ERR_NETWORK") {
-        setError("Koneksi gagal. Periksa internet atau endpoint API.");
+        setError("Koneksi gagal. Aktifkan MOCK_LOGIN di Login.jsx untuk mode offline.");
       } else {
         setError("Login gagal. Silakan coba lagi.");
       }
@@ -116,23 +145,23 @@ export default function Login() {
           fontSize="sm"
           transform="rotate(4deg)"
         >
-          LOGIN
+          🔐 MASUK
         </Box>
 
         <Flex direction="column" align="center" mb="8">
           <Flex
             align="center"
             justify="center"
-            w="72px"
-            h="72px"
-            rounded="22px"
+            w="80px"
+            h="80px"
+            rounded="24px"
             bg="#4ECDC4"
             border="4px solid #111"
             boxShadow="7px 7px 0 #111"
             mb="5"
             transform="rotate(3deg)"
           >
-            <Icon as={MdLocalPharmacy} w="32px" h="32px" color="#111" />
+            <Icon as={MdHealing} w="36px" h="36px" color="#111" />
           </Flex>
 
           <Heading
@@ -143,11 +172,11 @@ export default function Login() {
             mb="2"
             textAlign="center"
           >
-            Admin Portal
+            Apotek Sehat
           </Heading>
 
           <Text color="gray.700" fontSize="sm" fontWeight="700" textAlign="center">
-            Akses dashboard manajemen apotek
+            Sistem Manajemen Apotek Modern
           </Text>
         </Flex>
 
@@ -282,8 +311,8 @@ export default function Login() {
         </form>
 
         <Box mt="8" pt="6" borderTop="3px solid #111" textAlign="center">
-          <Text fontSize="xs" color="#111" fontWeight="800">
-            Demo:{" "}
+          <Text fontSize="xs" color="#111" fontWeight="800" mb="2">
+            👋 Akun Demo:{" "}
             <Text as="span" bg="#FFE66D" px="2" py="1" border="2px solid #111">
               emilys
             </Text>
@@ -291,6 +320,9 @@ export default function Login() {
             <Text as="span" bg="#FFE66D" px="2" py="1" border="2px solid #111">
               emilyspass
             </Text>
+          </Text>
+          <Text fontSize="10px" color="gray.600" fontWeight="600">
+            © 2026 Apotek Sehat - Sistem Informasi Apotek
           </Text>
         </Box>
       </Box>

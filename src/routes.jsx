@@ -7,12 +7,12 @@ import {
   MdPeople,
 } from 'react-icons/md';
 
-// Admin Imports
-import DasborRestoran from 'pertemuan6/views/admin/beranda';
-import MenuMakanan from 'pertemuan6/views/admin/pasar';
-import PesananPelanggan from 'pertemuan6/views/admin/tabel-data';
-import DaftarPelanggan from 'pertemuan6/views/admin/profil';
-import ErrorView from 'pertemuan6/views/admin/error';
+// Admin Imports (dari _archive/pertemuan6)
+import DasborRestoran from './_archive/pertemuan6/views/admin/beranda';
+import MenuMakanan from './_archive/pertemuan6/views/admin/pasar';
+import PesananPelanggan from './_archive/pertemuan6/views/admin/tabel-data';
+import DaftarPelanggan from './_archive/pertemuan6/views/admin/profil';
+import ErrorView from './_archive/pertemuan6/views/admin/error';
 
 const routes = [
   {
