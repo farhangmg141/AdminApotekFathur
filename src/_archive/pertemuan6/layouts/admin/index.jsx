@@ -52,8 +52,8 @@ export default function Dashboard(props) {
   const { onOpen } = useDisclosure();
   
   return (
-    <Box bg="#F5F1E8">
-      <Box bg="#F5F1E8">
+    <Box bg="#FFE66D">
+      <Box bg="#FFE66D">
         <SidebarContext.Provider
           value={{
             toggleSidebar,
@@ -91,7 +91,7 @@ export default function Dashboard(props) {
               pe="20px"
               minH="100vh"
               pt="50px"
-              bg="#F5F1E8"
+              bg="#FFE66D"
             >
               <ErrorBoundary>
                 <Routes>

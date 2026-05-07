@@ -1,0 +1,32 @@
+export const THEME = {
+  primary: "#33DFFF",
+  background: "#F5FF63",
+  danger: "#FF4FD8",
+  success: "#A7FF3D",
+  black: "#111111",
+  white: "#FFFFFF",
+
+  // Aliases for compatibility
+  yellow: "#F5FF63",
+  pink: "#FF4FD8",
+  green: "#A7FF3D",
+  orange: "#FF4FD8",
+  purple: "#33DFFF",
+
+  surface: "#FFFFFF",
+  soft: "#FFFFFF",
+  text: "#111111",
+  muted: "#111111",
+  border: "#111111",
+  shadow: "#111111",
+  cardBg: "#FFFFFF",
+  inputBg: "#FFFFFF",
+  inputHover: "#F5FF63",
+  buttonPrimary: "#33DFFF",
+  buttonSecondary: "#F5FF63",
+  buttonDanger: "#FF4FD8",
+  badgePrimary: "#33DFFF",
+  badgeSuccess: "#A7FF3D",
+  badgeWarning: "#FF4FD8",
+  badgeDanger: "#FF4FD8",
+};

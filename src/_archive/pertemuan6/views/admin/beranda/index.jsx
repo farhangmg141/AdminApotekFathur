@@ -22,74 +22,76 @@ import {
 } from "react-icons/md";
 
 export default function DashboardApotek() {
-  const bgPage = "#E9FFF3";
+  const bgPage = "#FFE66D";
   const cardBg = "#FFFFFF";
   const textDark = "#111111";
-  const textMuted = "#555555";
+  const textMuted = "#4D4D4D";
 
-  const accentBlue = "#4D96FF";
-  const accentYellow = "#FFD93D";
-  const accentGreen = "#6BCB77";
-  const accentRed = "#FF6B6B";
-  const accentPurple = "#B983FF";
+  const accentCyan = "#48D8FF";
+  const accentYellow = "#FFE66D";
+  const accentGreen = "#8BFF58";
+  const accentPink = "#FF5DD6";
+  const accentOrange = "#FFB800";
+  const softYellow = "#FFF9C2";
 
   const stats = [
     {
-      label: "Obat Terjual Hari Ini",
+      label: "Obat Terjual",
       value: "128",
       help: "+18%",
-      color: accentBlue,
+      color: accentCyan,
       icon: MdMedication,
     },
     {
-      label: "Pendapatan Apotek",
+      label: "Pendapatan",
       value: "Rp 8,7jt",
       help: "+12%",
       color: accentGreen,
       icon: MdAttachMoney,
     },
     {
-      label: "Stok Hampir Habis",
+      label: "Stok Menipis",
       value: "14",
-      help: "Perlu restock",
-      color: accentYellow,
+      help: "Restock",
+      color: accentOrange,
       icon: MdHealthAndSafety,
     },
     {
       label: "Produk Aktif",
       value: "246",
-      help: "Tersedia",
-      color: accentPurple,
+      help: "Ready",
+      color: accentPink,
       icon: MdLocalPharmacy,
     },
   ];
 
   const salesData = [
-    { value: 45, color: accentBlue },
+    { value: 45, color: accentCyan },
     { value: 60, color: accentYellow },
     { value: 55, color: accentGreen },
-    { value: 78, color: accentRed },
-    { value: 66, color: accentBlue },
-    { value: 92, color: accentYellow },
-    { value: 80, color: accentPurple },
+    { value: 78, color: accentPink },
+    { value: 66, color: accentCyan },
+    { value: 92, color: accentOrange },
+    { value: 80, color: accentPink },
   ];
 
   return (
     <Box
       bg={bgPage}
       minH="100vh"
-      px={{ base: "16px", md: "24px" }}
-      pt={{ base: "135px", md: "140px", xl: "145px" }}
+      px={{ base: "14px", md: "24px" }}
+      pt={{ base: "128px", md: "138px", xl: "145px" }}
       pb="70px"
       position="relative"
       overflow="hidden"
+      fontFamily="Manrope, sans-serif"
     >
       <Box
         position="absolute"
         inset="0"
-        opacity="0.16"
+        opacity="0.12"
         bgImage="linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px)"
-        bgSize="34px 34px"
+        bgSize="28px 28px"
         pointerEvents="none"
       />
 
@@ -98,17 +100,28 @@ export default function DashboardApotek() {
           align={{ base: "flex-start", lg: "flex-end" }}
           justify="space-between"
           gap="18px"
-          mb="30px"
+          mb="26px"
           direction={{ base: "column", lg: "row" }}
         >
           <Box>
-            <PageHeader title="Dashboard Apotek" breadcrumb="Apotek" />
+            <PageHeader title="DASHBOARD APOTEK" breadcrumb="Apotek" />
           </Box>
 
-          <Flex gap="12px" flexWrap="wrap" mb={{ base: "0", lg: "14px" }}>
+          <Flex gap="12px" flexWrap="wrap" mb={{ base: "0", lg: "12px" }}>
             <InputGroup w={{ base: "100%", md: "300px" }}>
-              <InputLeftElement pointerEvents="none" h="100%">
-                <Icon as={MdSearch} color={textDark} fontSize="22px" />
+              <InputLeftElement h="100%" pl="6px">
+                <Flex
+                  w="34px"
+                  h="34px"
+                  align="center"
+                  justify="center"
+                  bg={accentCyan}
+                  border="3px solid #111"
+                  borderRadius="12px"
+                  boxShadow="3px 3px 0 #111"
+                >
+                  <Icon as={MdSearch} color={textDark} fontSize="21px" />
+                </Flex>
               </InputLeftElement>
 
               <Input
@@ -117,77 +130,89 @@ export default function DashboardApotek() {
                 border="4px solid #111"
                 borderRadius="18px"
                 h="54px"
-                pl="46px"
-                fontSize="15px"
+                pl="54px"
+                fontSize="14px"
                 fontWeight="900"
                 color={textDark}
                 boxShadow="6px 6px 0 #111"
-                _placeholder={{ color: textMuted }}
+                _placeholder={{
+                  color: textMuted,
+                  fontWeight: "900",
+                }}
+                _hover={{
+                  bg: softYellow,
+                  transform: "translate(-2px, -2px)",
+                  boxShadow: "8px 8px 0 #111",
+                }}
                 _focus={{
                   bg: "#FFFFFF",
                   borderColor: "#111",
-                  boxShadow: "8px 8px 0 #111",
+                  boxShadow: `8px 8px 0 ${accentCyan}`,
                 }}
+                transition="all .18s ease"
               />
             </InputGroup>
 
             <Button
               leftIcon={<MdDownload />}
-              bg={accentBlue}
+              bg={accentPink}
               color="#111"
               border="4px solid #111"
               borderRadius="18px"
-              fontSize="14px"
+              fontSize="13px"
               fontWeight="900"
               h="54px"
+              textTransform="uppercase"
               boxShadow="6px 6px 0 #111"
               _hover={{
-                bg: "#7BB2FF",
+                bg: accentCyan,
                 transform: "translate(-2px, -2px)",
                 boxShadow: "8px 8px 0 #111",
               }}
               _active={{
+                bg: accentYellow,
                 transform: "translate(3px, 3px)",
                 boxShadow: "2px 2px 0 #111",
               }}
             >
-              Export Laporan
+              Export
             </Button>
           </Flex>
         </Flex>
 
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="24px" mb="34px">
+        <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="22px" mb="32px">
           {stats.map((s, i) => (
             <Box
               key={i}
               bg={cardBg}
               border="4px solid #111"
-              p="24px"
-              minH="190px"
-              borderRadius="26px"
-              boxShadow="10px 10px 0 #111"
+              p="22px"
+              minH="176px"
+              borderRadius="22px"
+              boxShadow="8px 8px 0 #111"
               position="relative"
               overflow="hidden"
             >
               <Box
                 position="absolute"
-                top="-22px"
-                right="-22px"
-                w="94px"
-                h="94px"
+                top="-26px"
+                right="-24px"
+                w="92px"
+                h="92px"
                 bg={s.color}
                 border="4px solid #111"
-                borderRadius="50%"
+                borderRadius="20px"
+                transform="rotate(8deg)"
               />
 
               <Flex
                 align="center"
                 justify="center"
-                w="56px"
-                h="56px"
+                w="54px"
+                h="54px"
                 bg={s.color}
                 border="4px solid #111"
-                boxShadow="5px 5px 0 #111"
+                boxShadow="4px 4px 0 #111"
                 borderRadius="16px"
                 mb="18px"
                 position="relative"
@@ -197,12 +222,12 @@ export default function DashboardApotek() {
               </Flex>
 
               <Text
-                fontSize="11px"
+                fontSize="10px"
                 fontWeight="900"
                 textTransform="uppercase"
-                letterSpacing="1.5px"
+                letterSpacing="1.2px"
                 color={textMuted}
-                mb="10px"
+                mb="9px"
                 position="relative"
                 zIndex="2"
               >
@@ -210,7 +235,7 @@ export default function DashboardApotek() {
               </Text>
 
               <Text
-                fontSize={{ base: "34px", md: "38px" }}
+                fontSize={{ base: "34px", md: "37px" }}
                 fontWeight="900"
                 color={textDark}
                 lineHeight="1"
@@ -225,11 +250,13 @@ export default function DashboardApotek() {
                 bg={s.color}
                 color="#111"
                 border="3px solid #111"
-                boxShadow="4px 4px 0 #111"
+                boxShadow="3px 3px 0 #111"
                 px="3"
                 py="1"
-                borderRadius="12px"
+                borderRadius="10px"
+                fontSize="11px"
                 fontWeight="900"
+                textTransform="uppercase"
                 position="relative"
                 zIndex="2"
               >
@@ -239,21 +266,21 @@ export default function DashboardApotek() {
           ))}
         </SimpleGrid>
 
-        <SimpleGrid columns={{ base: 1, xl: 2 }} gap="26px" mb="34px">
+        <SimpleGrid columns={{ base: 1, xl: 2 }} gap="24px" mb="32px">
           <Box
             bg={cardBg}
             border="4px solid #111"
-            p={{ base: "22px", md: "30px" }}
-            borderRadius="26px"
-            boxShadow="10px 10px 0 #111"
+            p={{ base: "22px", md: "28px" }}
+            borderRadius="24px"
+            boxShadow="8px 8px 0 #111"
           >
-            <Flex align="center" justify="space-between" mb="26px" gap="4">
+            <Flex align="center" justify="space-between" mb="24px" gap="4">
               <Box>
                 <Text fontSize="21px" fontWeight="900" color={textDark}>
-                  📊 Penjualan Obat Mingguan
+                  TRAFFIC OVERVIEW
                 </Text>
-                <Text fontSize="13px" fontWeight="800" color={textMuted} mt="1">
-                  Performa transaksi apotek 7 hari terakhir
+                <Text fontSize="12px" fontWeight="900" color={textMuted} mt="1">
+                  Penjualan obat 7 hari terakhir
                 </Text>
               </Box>
 
@@ -261,8 +288,8 @@ export default function DashboardApotek() {
                 bg={accentGreen}
                 color="#111"
                 border="3px solid #111"
-                boxShadow="4px 4px 0 #111"
-                borderRadius="12px"
+                boxShadow="3px 3px 0 #111"
+                borderRadius="10px"
                 px="3"
                 py="1"
                 fontWeight="900"
@@ -271,7 +298,7 @@ export default function DashboardApotek() {
               </Badge>
             </Flex>
 
-            <Flex h="240px" align="flex-end" gap="10px">
+            <Flex h="220px" align="flex-end" gap="9px">
               {salesData.map((item, i) => (
                 <Box
                   key={i}
@@ -279,17 +306,17 @@ export default function DashboardApotek() {
                   bg={item.color}
                   h={`${item.value}%`}
                   border="4px solid #111"
-                  borderRadius="14px 14px 0 0"
+                  borderRadius="12px 12px 0 0"
                   boxShadow="4px 4px 0 #111"
                 />
               ))}
             </Flex>
 
-            <Flex justify="space-between" mt="22px" gap="10px">
-              {["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"].map((day) => (
+            <Flex justify="space-between" mt="20px" gap="8px">
+              {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((day) => (
                 <Text
                   key={day}
-                  fontSize="12px"
+                  fontSize="11px"
                   color={textDark}
                   fontWeight="900"
                   w="100%"
@@ -304,15 +331,15 @@ export default function DashboardApotek() {
           <Box
             bg={cardBg}
             border="4px solid #111"
-            borderRadius="26px"
+            borderRadius="24px"
             overflow="hidden"
-            boxShadow="10px 10px 0 #111"
+            boxShadow="8px 8px 0 #111"
           >
-            <Box p="28px" pb="18px" borderBottom="4px solid #111">
+            <Box p="24px" pb="16px" borderBottom="4px solid #111" bg={softYellow}>
               <Text fontSize="21px" fontWeight="900" color={textDark}>
-                📍 Lokasi Apotek
+                LOKASI APOTEK
               </Text>
-              <Text color={textMuted} fontSize="13px" fontWeight="800" mt="8px">
+              <Text color={textMuted} fontSize="12px" fontWeight="900" mt="7px">
                 Cabang Utama Jakarta Selatan
               </Text>
             </Box>
@@ -322,7 +349,11 @@ export default function DashboardApotek() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.1748281134!2d106.824964!3d-6.2297465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e4a42903ab%3A0x62810d7a04944f6!2sSudirman%20Central%20Business%20District!5e0!3m2!1sen!2sid!4v1714000000000!5m2!1sen!2sid"
               width="100%"
               height="330"
-              style={{ border: "none", display: "block" }}
+              style={{
+                border: "none",
+                display: "block",
+                filter: "grayscale(1) contrast(1.15)",
+              }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -331,14 +362,28 @@ export default function DashboardApotek() {
         </SimpleGrid>
 
         <Box
-          bg={cardBg}
+          bg={softYellow}
           border="4px solid #111"
           p={{ base: "24px", md: "30px" }}
-          borderRadius="26px"
-          boxShadow="10px 10px 0 #111"
+          borderRadius="24px"
+          boxShadow="8px 8px 0 #111"
+          position="relative"
+          overflow="hidden"
         >
+          <Box
+            position="absolute"
+            top="-18px"
+            right="-18px"
+            w="90px"
+            h="90px"
+            bg={accentCyan}
+            border="4px solid #111"
+            borderRadius="20px"
+            transform="rotate(10deg)"
+          />
+
           <Text fontSize="21px" fontWeight="900" color={textDark} mb="12px">
-            ⚡ Sistem Apotek Terintegrasi
+            SISTEM APOTEK TERINTEGRASI
           </Text>
 
           <Text
@@ -347,6 +392,9 @@ export default function DashboardApotek() {
             fontSize="15px"
             fontWeight="800"
             lineHeight="1.7"
+            maxW="760px"
+            position="relative"
+            zIndex="2"
           >
             Sistem mendukung manajemen{" "}
             <Text as="span" fontWeight="900" color={textDark}>
@@ -365,11 +413,11 @@ export default function DashboardApotek() {
             p="10px 16px"
             borderRadius="12px"
             border="3px solid #111"
-            boxShadow="5px 5px 0 #111"
+            boxShadow="4px 4px 0 #111"
             fontSize="12px"
             fontWeight="900"
           >
-            ✓ Sistem Apotek: Stabil
+            ✓ SYSTEM STATUS: STABLE
           </Badge>
         </Box>
       </Box>

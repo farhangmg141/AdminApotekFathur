@@ -37,6 +37,19 @@ import {
 import PageHeader from "components/pageHeader/PageHeader.jsx";
 import { MdPersonAdd, MdSearch, MdDeleteOutline } from "react-icons/md";
 
+const THEME = {
+  bgPage: "#FFE66D",
+  cardBg: "#FFFFFF",
+  textDark: "#111111",
+  textMuted: "#5B5B5B",
+  cyan: "#48D8FF",
+  pink: "#FF5DD6",
+  yellow: "#FFE66D",
+  green: "#8BFF58",
+  orange: "#FFB800",
+  softYellow: "#FFF9C2",
+};
+
 const initialPatients = [
   {
     id: "#APT-2001",
@@ -62,9 +75,9 @@ const initialPatients = [
 ];
 
 const categoryColor = {
-  Umum: "#4D96FF",
-  BPJS: "#6BCB77",
-  Member: "#FFD93D",
+  Umum: THEME.cyan,
+  BPJS: THEME.green,
+  Member: THEME.yellow,
 };
 
 export default function DaftarPasienApotek() {
@@ -80,6 +93,19 @@ export default function DaftarPasienApotek() {
     phone: "",
     category: "Umum",
   });
+
+  const inputStyle = {
+    bg: THEME.cardBg,
+    color: THEME.textDark,
+    border: "3px solid #111",
+    borderRadius: "14px",
+    fontWeight: "900",
+    boxShadow: "4px 4px 0 #111",
+    _focus: {
+      borderColor: "#111",
+      boxShadow: `6px 6px 0 ${THEME.cyan}`,
+    },
+  };
 
   const filteredPatients = useMemo(() => {
     return patients.filter((patient) => {
@@ -150,232 +176,347 @@ export default function DaftarPasienApotek() {
   };
 
   return (
-   <Box
-    bg="#E9FFF3"
-    minH="100vh"
-    px={{ base: "16px", md: "24px" }}
-    pt={{ base: "135px", md: "140px", xl: "145px" }}
-    pb="70px"
-    position="relative"
-    overflow="hidden"
-  >
-      <PageHeader title="Daftar Pasien Apotek" breadcrumb={["Manajemen", "Pasien"]}>
-        <Flex gap="12px" wrap="wrap">
-          <InputGroup w={{ base: "100%", md: "280px" }}>
-            <InputLeftElement>
-              <MdSearch color="#111" />
-            </InputLeftElement>
-
-            <Input
-              placeholder="Cari pasien..."
-              bg="#FFFFFF"
-              border="3px solid #111"
-              borderRadius="16px"
-              boxShadow="5px 5px 0 #111"
-              fontWeight="800"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </InputGroup>
-
-          <Button
-            leftIcon={<MdPersonAdd />}
-            bg="#4ECDC4"
-            color="#111"
-            border="3px solid #111"
-            borderRadius="16px"
-            boxShadow="5px 5px 0 #111"
-            fontWeight="900"
-            onClick={onOpen}
-          >
-            Tambah Pasien
-          </Button>
-        </Flex>
-      </PageHeader>
-
-      <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px" mb="24px">
-        <Box bg="#FFFFFF" border="4px solid #111" borderRadius="22px" boxShadow="8px 8px 0 #111" p="20px">
-          <Stat>
-            <StatLabel fontWeight="900" color="#555">
-              Total Pasien
-            </StatLabel>
-            <StatNumber color="#111">{stats.total}</StatNumber>
-          </Stat>
-        </Box>
-
-        <Box bg="#FFFFFF" border="4px solid #111" borderRadius="22px" boxShadow="8px 8px 0 #111" p="20px">
-          <Stat>
-            <StatLabel fontWeight="900" color="#555">
-              Pasien BPJS
-            </StatLabel>
-            <StatNumber color="#111">{stats.bpjs}</StatNumber>
-          </Stat>
-        </Box>
-
-        <Box bg="#FFFFFF" border="4px solid #111" borderRadius="22px" boxShadow="8px 8px 0 #111" p="20px">
-          <Stat>
-            <StatLabel fontWeight="900" color="#555">
-              Member Apotek
-            </StatLabel>
-            <StatNumber color="#111">{stats.member}</StatNumber>
-          </Stat>
-        </Box>
-      </SimpleGrid>
-
+    <Box
+      bg={THEME.bgPage}
+      minH="100vh"
+      px={{ base: "16px", md: "24px" }}
+      pt={{ base: "135px", md: "140px", xl: "145px" }}
+      pb="70px"
+      position="relative"
+      overflow="hidden"
+      fontFamily="'Inter', sans-serif"
+    >
       <Box
-        bg="#FFFFFF"
-        border="4px solid #111"
-        borderRadius="24px"
-        boxShadow="10px 10px 0 #111"
-        overflow="hidden"
-      >
-        <TableContainer>
-          <Table variant="simple">
-            <Thead bg="#DFF7EA">
-              <Tr>
-                <Th color="#111" borderColor="#111">ID</Th>
-                <Th color="#111" borderColor="#111">Nama</Th>
-                <Th color="#111" borderColor="#111">Email</Th>
-                <Th color="#111" borderColor="#111">Telepon</Th>
-                <Th color="#111" borderColor="#111">Kategori</Th>
-                <Th color="#111" borderColor="#111">Aksi</Th>
-              </Tr>
-            </Thead>
+        position="absolute"
+        inset="0"
+        opacity="0.09"
+        bgImage="linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px)"
+        bgSize="28px 28px"
+        pointerEvents="none"
+      />
 
-            <Tbody>
-              {filteredPatients.map((patient) => (
-                <Tr key={patient.id}>
-                  <Td borderColor="#111" fontWeight="900" color="#111">
-                    {patient.id}
-                  </Td>
+      <Box position="relative" zIndex="1">
+        <PageHeader
+          title="DAFTAR PASIEN APOTEK"
+          breadcrumb={["Manajemen", "Pasien"]}
+        >
+          <Flex gap="12px" wrap="wrap">
+            <InputGroup w={{ base: "100%", md: "290px" }}>
+              <InputLeftElement h="100%" pl="5px" pointerEvents="none">
+                <Flex
+                  w="34px"
+                  h="34px"
+                  align="center"
+                  justify="center"
+                  bg={THEME.cyan}
+                  border="3px solid #111"
+                  borderRadius="12px"
+                  boxShadow="3px 3px 0 #111"
+                >
+                  <MdSearch color="#111" size="19px" />
+                </Flex>
+              </InputLeftElement>
 
-                  <Td borderColor="#111">
-                    <Flex align="center">
-                      <Avatar
-                        size="sm"
-                        name={patient.patientName}
-                        me="10px"
-                        border="2px solid #111"
-                      />
-                      <Text color="#111" fontWeight="900">
-                        {patient.patientName}
-                      </Text>
-                    </Flex>
-                  </Td>
-
-                  <Td borderColor="#111" color="#111" fontWeight="700">
-                    {patient.email}
-                  </Td>
-
-                  <Td borderColor="#111" color="#111" fontWeight="700">
-                    {patient.phone}
-                  </Td>
-
-                  <Td borderColor="#111">
-                    <Badge
-                      bg={categoryColor[patient.category]}
-                      color="#111"
-                      border="2px solid #111"
-                      borderRadius="12px"
-                      px="10px"
-                      py="4px"
-                      fontWeight="900"
-                    >
-                      {patient.category}
-                    </Badge>
-                  </Td>
-
-                  <Td borderColor="#111">
-                    <IconButton
-                      icon={<MdDeleteOutline />}
-                      bg="#FF6B6B"
-                      border="3px solid #111"
-                      borderRadius="12px"
-                      boxShadow="4px 4px 0 #111"
-                      onClick={() => handleDelete(patient.id)}
-                      aria-label="Hapus pasien"
-                    />
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
-
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay backdropFilter="blur(5px)" />
-
-        <ModalContent border="4px solid #111" borderRadius="24px" boxShadow="10px 10px 0 #111">
-          <ModalHeader fontWeight="900">Tambah Pasien Apotek</ModalHeader>
-          <ModalCloseButton />
-
-          <ModalBody>
-            <FormControl mb="4">
-              <FormLabel fontWeight="900">Nama</FormLabel>
               <Input
-                value={newPatientData.name}
-                onChange={(e) =>
-                  setNewPatientData({
-                    ...newPatientData,
-                    name: e.target.value,
-                  })
-                }
+                placeholder="Cari pasien..."
+                bg={THEME.cardBg}
+                border="3px solid #111"
+                borderRadius="18px"
+                boxShadow="5px 5px 0 #111"
+                fontWeight="900"
+                fontSize="14px"
+                h="54px"
+                pl="54px"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                _placeholder={{ color: THEME.textMuted, fontWeight: "800" }}
+                _hover={{
+                  bg: THEME.softYellow,
+                  transform: "translate(-2px, -2px)",
+                  boxShadow: "7px 7px 0 #111",
+                }}
+                _focus={{
+                  borderColor: "#111",
+                  boxShadow: `8px 8px 0 ${THEME.cyan}`,
+                }}
               />
-            </FormControl>
+            </InputGroup>
 
-            <FormControl mb="4">
-              <FormLabel fontWeight="900">Email</FormLabel>
-              <Input
-                value={newPatientData.email}
-                onChange={(e) =>
-                  setNewPatientData({
-                    ...newPatientData,
-                    email: e.target.value,
-                  })
-                }
-              />
-            </FormControl>
-
-            <FormControl mb="4">
-              <FormLabel fontWeight="900">No. Telepon</FormLabel>
-              <Input
-                value={newPatientData.phone}
-                onChange={(e) =>
-                  setNewPatientData({
-                    ...newPatientData,
-                    phone: e.target.value,
-                  })
-                }
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel fontWeight="900">Kategori Pasien</FormLabel>
-              <Select
-                value={newPatientData.category}
-                onChange={(e) =>
-                  setNewPatientData({
-                    ...newPatientData,
-                    category: e.target.value,
-                  })
-                }
-              >
-                <option value="Umum">Umum</option>
-                <option value="BPJS">BPJS</option>
-                <option value="Member">Member</option>
-              </Select>
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button onClick={onClose}>Batal</Button>
-            <Button bg="#4ECDC4" ml={3} onClick={handleAdd}>
-              Simpan
+            <Button
+              leftIcon={<MdPersonAdd />}
+              bg={THEME.cyan}
+              color="#111"
+              border="3px solid #111"
+              borderRadius="18px"
+              boxShadow="5px 5px 0 #111"
+              fontWeight="900"
+              textTransform="uppercase"
+              h="54px"
+              onClick={onOpen}
+              _hover={{
+                bg: THEME.pink,
+                transform: "translate(-2px, -2px)",
+                boxShadow: "7px 7px 0 #111",
+              }}
+              _active={{
+                bg: THEME.yellow,
+                transform: "translate(2px, 2px)",
+                boxShadow: "2px 2px 0 #111",
+              }}
+            >
+              Tambah Pasien
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </Flex>
+        </PageHeader>
+
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px" mb="24px">
+          {[
+            { label: "Total Pasien", value: stats.total, color: THEME.cyan },
+            { label: "Pasien BPJS", value: stats.bpjs, color: THEME.green },
+            { label: "Member Apotek", value: stats.member, color: THEME.yellow },
+          ].map((item, i) => (
+            <Box
+              key={i}
+              bg={THEME.cardBg}
+              border="4px solid #111"
+              borderRadius="20px"
+              boxShadow="7px 7px 0 #111"
+              p="20px"
+              position="relative"
+              overflow="hidden"
+            >
+              <Box
+                position="absolute"
+                top="-22px"
+                right="-18px"
+                w="80px"
+                h="80px"
+                bg={item.color}
+                border="4px solid #111"
+                borderRadius="18px"
+                transform="rotate(8deg)"
+              />
+
+              <Stat position="relative" zIndex="2">
+                <StatLabel fontWeight="900" color={THEME.textMuted}>
+                  {item.label}
+                </StatLabel>
+                <StatNumber color={THEME.textDark} fontWeight="900">
+                  {item.value}
+                </StatNumber>
+              </Stat>
+            </Box>
+          ))}
+        </SimpleGrid>
+
+        <Box
+          bg={THEME.cardBg}
+          border="4px solid #111"
+          borderRadius="24px"
+          boxShadow="8px 8px 0 #111"
+          overflow="hidden"
+        >
+          <TableContainer>
+            <Table variant="simple">
+              <Thead bg={THEME.softYellow}>
+                <Tr>
+                  {["ID", "Nama", "Email", "Telepon", "Kategori", "Aksi"].map(
+                    (head) => (
+                      <Th
+                        key={head}
+                        color="#111"
+                        borderColor="#111"
+                        fontWeight="900"
+                        fontSize="12px"
+                      >
+                        {head}
+                      </Th>
+                    )
+                  )}
+                </Tr>
+              </Thead>
+
+              <Tbody>
+                {filteredPatients.map((patient) => (
+                  <Tr key={patient.id} _hover={{ bg: THEME.softYellow }}>
+                    <Td borderColor="#111" fontWeight="900" color="#111">
+                      {patient.id}
+                    </Td>
+
+                    <Td borderColor="#111">
+                      <Flex align="center">
+                        <Avatar
+                          size="sm"
+                          name={patient.patientName}
+                          me="10px"
+                          bg={categoryColor[patient.category]}
+                          color="#111"
+                          border="2px solid #111"
+                          fontWeight="900"
+                        />
+                        <Text color="#111" fontWeight="900">
+                          {patient.patientName}
+                        </Text>
+                      </Flex>
+                    </Td>
+
+                    <Td borderColor="#111" color="#111" fontWeight="800">
+                      {patient.email}
+                    </Td>
+
+                    <Td borderColor="#111" color="#111" fontWeight="800">
+                      {patient.phone}
+                    </Td>
+
+                    <Td borderColor="#111">
+                      <Badge
+                        bg={categoryColor[patient.category]}
+                        color="#111"
+                        border="2px solid #111"
+                        borderRadius="12px"
+                        px="10px"
+                        py="4px"
+                        fontWeight="900"
+                        boxShadow="3px 3px 0 #111"
+                      >
+                        {patient.category}
+                      </Badge>
+                    </Td>
+
+                    <Td borderColor="#111">
+                      <IconButton
+                        icon={<MdDeleteOutline />}
+                        bg={THEME.pink}
+                        border="3px solid #111"
+                        borderRadius="12px"
+                        boxShadow="4px 4px 0 #111"
+                        onClick={() => handleDelete(patient.id)}
+                        aria-label="Hapus pasien"
+                        _hover={{
+                          bg: THEME.orange,
+                          transform: "translate(-2px, -2px)",
+                          boxShadow: "6px 6px 0 #111",
+                        }}
+                        _active={{
+                          transform: "translate(2px, 2px)",
+                          boxShadow: "2px 2px 0 #111",
+                        }}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Box>
+
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+          <ModalOverlay bg="rgba(17,17,17,0.55)" backdropFilter="blur(5px)" />
+
+          <ModalContent
+            bg={THEME.softYellow}
+            border="4px solid #111"
+            borderRadius="24px"
+            boxShadow="10px 10px 0 #111"
+          >
+            <ModalHeader fontWeight="900">Tambah Pasien Apotek</ModalHeader>
+
+            <ModalCloseButton
+              bg={THEME.pink}
+              border="3px solid #111"
+              borderRadius="12px"
+              boxShadow="3px 3px 0 #111"
+            />
+
+            <ModalBody>
+              <FormControl mb="4">
+                <FormLabel fontWeight="900">Nama</FormLabel>
+                <Input
+                  value={newPatientData.name}
+                  onChange={(e) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      name: e.target.value,
+                    })
+                  }
+                  {...inputStyle}
+                />
+              </FormControl>
+
+              <FormControl mb="4">
+                <FormLabel fontWeight="900">Email</FormLabel>
+                <Input
+                  value={newPatientData.email}
+                  onChange={(e) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      email: e.target.value,
+                    })
+                  }
+                  {...inputStyle}
+                />
+              </FormControl>
+
+              <FormControl mb="4">
+                <FormLabel fontWeight="900">No. Telepon</FormLabel>
+                <Input
+                  value={newPatientData.phone}
+                  onChange={(e) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      phone: e.target.value,
+                    })
+                  }
+                  {...inputStyle}
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel fontWeight="900">Kategori Pasien</FormLabel>
+                <Select
+                  value={newPatientData.category}
+                  onChange={(e) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      category: e.target.value,
+                    })
+                  }
+                  {...inputStyle}
+                >
+                  <option value="Umum">Umum</option>
+                  <option value="BPJS">BPJS</option>
+                  <option value="Member">Member</option>
+                </Select>
+              </FormControl>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                onClick={onClose}
+                bg={THEME.cardBg}
+                border="3px solid #111"
+                borderRadius="14px"
+                boxShadow="4px 4px 0 #111"
+                fontWeight="900"
+              >
+                Batal
+              </Button>
+
+              <Button
+                bg={THEME.cyan}
+                ml={3}
+                onClick={handleAdd}
+                border="3px solid #111"
+                borderRadius="14px"
+                boxShadow="4px 4px 0 #111"
+                fontWeight="900"
+              >
+                Simpan
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Box>
     </Box>
   );
 }

@@ -11,6 +11,18 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import AdminNavbarLinks from "components/navbar/NavbarLinksAdmin";
 
+const THEME = {
+  black: "#111111",
+  white: "#FFFFFF",
+  yellow: "#F5FF63",
+  cyan: "#33DFFF",
+  pink: "#FF4FD8",
+  green: "#A7FF3D",
+  orange: "#FF8A00",
+  soft: "#FFFDEB",
+  muted: "#666666",
+};
+
 export default function AdminNavbar(props) {
   const [scrolled, setScrolled] = useState(false);
   const { secondary, message, brandText } = props;
@@ -27,52 +39,56 @@ export default function AdminNavbar(props) {
   return (
     <Box
       position="fixed"
-      bg="#FFFFFF"
-      border="4px solid #111"
-      borderRadius="24px"
-      boxShadow={scrolled ? "9px 9px 0 #111" : "6px 6px 0 #111"}
-      minH={{ base: "74px", md: "86px" }}
+      bg={THEME.white}
+      border={`3px solid ${THEME.black}`}
+      borderRadius="14px"
+      boxShadow={scrolled ? `6px 6px 0 ${THEME.black}` : `4px 4px 0 ${THEME.black}`}
+      minH={{ base: "66px", md: "76px" }}
       mx="auto"
-      px={{ base: "14px", md: "20px" }}
-      py={{ base: "10px", md: "12px" }}
-      right={{ base: "12px", md: "24px", xl: "28px" }}
+      px={{ base: "12px", md: "18px" }}
+      py={{ base: "9px", md: "11px" }}
+      right={{ base: "10px", md: "22px", xl: "26px" }}
       top={{ base: "10px", md: "14px", xl: "18px" }}
       w={{
-        base: "calc(100vw - 24px)",
-        md: "calc(100vw - 48px)",
+        base: "calc(100vw - 20px)",
+        md: "calc(100vw - 44px)",
         xl: "calc(100vw - 340px)",
         "2xl": "calc(100vw - 360px)",
       }}
       zIndex="30"
       pointerEvents="auto"
-      transition="all 0.25s ease"
+      transition="all 0.2s ease"
+      fontFamily="'Inter', sans-serif"
     >
       <Flex
         w="100%"
         align="center"
         justify="space-between"
-        gap="16px"
+        gap="14px"
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box w={{ base: "100%", md: "auto" }}>
           <Breadcrumb mb="3px">
-            <BreadcrumbItem color="#555" fontSize="11px" fontWeight="900">
-              <BreadcrumbLink href="#">Pages</BreadcrumbLink>
+            <BreadcrumbItem color={THEME.muted} fontSize="10px" fontWeight="900">
+              <BreadcrumbLink href="#">PAGES</BreadcrumbLink>
             </BreadcrumbItem>
 
-            <BreadcrumbItem color="#4D96FF" fontSize="11px" fontWeight="900">
+            <BreadcrumbItem color={THEME.cyan} fontSize="10px" fontWeight="900">
               <BreadcrumbLink href="#">{brandText}</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
 
           <Link
             href="#"
-            color="#111"
+            color={THEME.black}
             fontWeight="900"
-            fontSize={{ base: "24px", md: "30px", xl: "34px" }}
+            fontSize={{ base: "22px", md: "28px", xl: "32px" }}
             lineHeight="1"
-            letterSpacing="-1.5px"
-            _hover={{ color: "#FF6B6B", textDecoration: "none" }}
+            letterSpacing="-1.6px"
+            _hover={{
+              color: THEME.pink,
+              textDecoration: "none",
+            }}
             _focus={{ boxShadow: "none" }}
           >
             {brandText}
@@ -98,7 +114,18 @@ export default function AdminNavbar(props) {
       </Flex>
 
       {secondary && (
-        <Text color="#111" fontWeight="900" mt="2">
+        <Text
+          color={THEME.black}
+          fontWeight="900"
+          mt="2"
+          fontSize="12px"
+          bg={THEME.yellow}
+          border={`2px solid ${THEME.black}`}
+          borderRadius="8px"
+          px="10px"
+          py="4px"
+          display="inline-block"
+        >
           {message}
         </Text>
       )}

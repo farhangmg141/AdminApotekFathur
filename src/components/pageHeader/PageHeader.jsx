@@ -9,33 +9,41 @@ import {
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
-const PageHeader = ({ title, breadcrumb, children }) => {
-  const textColor = "#111111";
-  const subTextColor = "#555555";
-  const accentColor = "#4D96FF";
+const THEME = {
+  black: "#111111",
+  white: "#FFFFFF",
+  yellow: "#F5FF63",
+  cyan: "#33DFFF",
+  pink: "#FF4FD8",
+  orange: "#FF8A00",
+  green: "#A7FF3D",
+  soft: "#FFFDEB",
+  muted: "#666666",
+};
 
+const PageHeader = ({ title, breadcrumb, children }) => {
   const breadcrumbs = Array.isArray(breadcrumb) ? breadcrumb : [breadcrumb];
 
   return (
-   <Box mb="28px" pt="0px">
+    <Box mb="24px" pt="0px" fontFamily="'Inter', sans-serif">
       <Flex direction="column">
         <Breadcrumb
-          separator={<ChevronRightIcon color="#111" />}
-          spacing="8px"
-          mb="18px"
+          separator={<ChevronRightIcon color={THEME.black} />}
+          spacing="7px"
+          mb="16px"
         >
           <BreadcrumbItem
-            bg="#FFFFFF"
-            color={subTextColor}
-            fontSize="11px"
+            bg={THEME.white}
+            color={THEME.muted}
+            fontSize="10px"
             fontWeight="900"
             textTransform="uppercase"
-            letterSpacing="1px"
-            border="2px solid #111"
-            borderRadius="10px"
-            px="3"
-            py="1"
-            boxShadow="4px 4px 0 #111"
+            letterSpacing="0.8px"
+            border={`2px solid ${THEME.black}`}
+            borderRadius="8px"
+            px="10px"
+            py="4px"
+            boxShadow={`3px 3px 0 ${THEME.black}`}
           >
             <BreadcrumbLink href="#">Apotek Rustaf</BreadcrumbLink>
           </BreadcrumbItem>
@@ -43,44 +51,43 @@ const PageHeader = ({ title, breadcrumb, children }) => {
           {breadcrumbs.map((item, index) => (
             <BreadcrumbItem
               key={index}
-              bg={index === breadcrumbs.length - 1 ? accentColor : "#FFFFFF"}
-              color={index === breadcrumbs.length - 1 ? "#111" : subTextColor}
-              fontSize="11px"
+              bg={index === breadcrumbs.length - 1 ? THEME.cyan : THEME.white}
+              color={THEME.black}
+              fontSize="10px"
               fontWeight="900"
               textTransform="uppercase"
-              letterSpacing="1px"
-              border="2px solid #111"
-              borderRadius="10px"
-              px="3"
-              py="1"
-              boxShadow="4px 4px 0 #111"
+              letterSpacing="0.8px"
+              border={`2px solid ${THEME.black}`}
+              borderRadius="8px"
+              px="10px"
+              py="4px"
+              boxShadow={`3px 3px 0 ${THEME.black}`}
             >
               <BreadcrumbLink href="#">{item}</BreadcrumbLink>
             </BreadcrumbItem>
           ))}
         </Breadcrumb>
 
-        <Flex justify="space-between" align="flex-start" wrap="wrap" gap="18px">
+        <Flex justify="space-between" align="flex-start" wrap="wrap" gap="16px">
           <Box>
             <Text
-              color={textColor}
-              fontSize={{ base: "38px", md: "54px", xl: "66px" }}
+              color={THEME.black}
+              fontSize={{ base: "30px", md: "42px", xl: "48px" }}
               fontWeight="900"
-              lineHeight="1"
+              lineHeight="0.95"
               letterSpacing="-2px"
-              textShadow="3px 3px 0 #FFFFFF"
             >
               {title}
             </Text>
 
             <Box
-              h="10px"
-              bg="#FF6B6B"
-              mt="16px"
-              w={{ base: "90px", md: "130px" }}
-              border="3px solid #111"
-              borderRadius="20px"
-              boxShadow="5px 5px 0 #111"
+              h="8px"
+              bg={THEME.pink}
+              mt="12px"
+              w={{ base: "78px", md: "110px" }}
+              border={`3px solid ${THEME.black}`}
+              borderRadius="999px"
+              boxShadow={`3px 3px 0 ${THEME.black}`}
             />
           </Box>
 

@@ -3,6 +3,19 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 
+const THEME = {
+  black: "#111111",
+  white: "#FFFFFF",
+  yellow: "#F5FF63",
+  cyan: "#33DFFF",
+  pink: "#FF4FD8",
+  green: "#A7FF3D",
+  orange: "#FF8A00",
+  purple: "#C8A2FF",
+  soft: "#FFFDEB",
+  muted: "#666666",
+};
+
 export function SidebarLinks(props) {
   const location = useLocation();
   const { routes } = props;
@@ -17,15 +30,14 @@ export function SidebarLinks(props) {
         return (
           <Box key={index}>
             <Text
-              fontSize="12px"
-              color="#555"
+              fontSize="10px"
+              color={THEME.muted}
               fontWeight="900"
-              mx="auto"
-              ps="12px"
-              pt="18px"
-              pb="10px"
+              ps="10px"
+              pt="16px"
+              pb="9px"
               textTransform="uppercase"
-              letterSpacing="1.2px"
+              letterSpacing="1px"
             >
               {route.name}
             </Text>
@@ -48,34 +60,39 @@ export function SidebarLinks(props) {
             style={{ textDecoration: "none" }}
           >
             <Box
-              mb="12px"
-              bg={isActive ? "#FF6B6B" : "#FFFFFF"}
-              border="3px solid #111"
-              borderRadius="16px"
-              boxShadow={isActive ? "6px 6px 0 #111" : "4px 4px 0 #111"}
-              transform={isActive ? "translate(-2px, -2px)" : "none"}
+              mb="10px"
+              bg={isActive ? THEME.pink : THEME.white}
+              border={`3px solid ${THEME.black}`}
+              borderRadius="12px"
+              boxShadow={
+                isActive
+                  ? `5px 5px 0 ${THEME.black}`
+                  : `3px 3px 0 ${THEME.black}`
+              }
+              transform={isActive ? "translate(-1px, -1px)" : "none"}
+              transition="all 0.18s ease"
               _hover={{
-                bg: isActive ? "#FF6B6B" : "#FFE66D",
-                transform: "translate(-2px, -2px)",
-                boxShadow: "6px 6px 0 #111",
+                bg: isActive ? THEME.pink : THEME.yellow,
+                transform: "translate(-1px, -1px)",
+                boxShadow: `5px 5px 0 ${THEME.black}`,
               }}
               _active={{
                 transform: "translate(2px, 2px)",
-                boxShadow: "2px 2px 0 #111",
+                boxShadow: `1px 1px 0 ${THEME.black}`,
               }}
-              transition="all 0.2s"
             >
-              <HStack spacing="14px" py="12px" px="14px">
+              <HStack spacing="12px" py="10px" px="12px">
                 {route.icon && (
                   <Flex
-                    w="36px"
-                    h="36px"
+                    w="34px"
+                    h="34px"
                     align="center"
                     justify="center"
-                    bg={isActive ? "#FFFFFF" : "#4D96FF"}
-                    border="2px solid #111"
-                    borderRadius="12px"
-                    color="#111"
+                    bg={isActive ? THEME.white : THEME.cyan}
+                    border={`2px solid ${THEME.black}`}
+                    borderRadius="10px"
+                    boxShadow={`2px 2px 0 ${THEME.black}`}
+                    color={THEME.black}
                     flexShrink="0"
                   >
                     {route.icon}
@@ -84,21 +101,24 @@ export function SidebarLinks(props) {
 
                 <Text
                   me="auto"
-                  color="#111"
+                  color={THEME.black}
                   fontWeight="900"
-                  fontSize="14px"
+                  fontSize="13px"
                   lineHeight="1.2"
+                  textTransform="uppercase"
+                  letterSpacing="-0.02em"
                 >
                   {route.name}
                 </Text>
 
                 {isActive && (
                   <Box
-                    h="14px"
-                    w="14px"
-                    bg="#111"
+                    h="12px"
+                    w="12px"
+                    bg={THEME.black}
                     borderRadius="50%"
                     flexShrink="0"
+                    boxShadow={`2px 2px 0 ${THEME.yellow}`}
                   />
                 )}
               </HStack>

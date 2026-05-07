@@ -1,101 +1,177 @@
 import { mode } from "@chakra-ui/theme-tools";
+import { THEME } from "../themeConstants";
+
 export const buttonStyles = {
   components: {
     Button: {
       baseStyle: {
-        borderRadius: "16px",
-        boxShadow: "45px 76px 113px 7px rgba(112, 144, 176, 0.08)",
-        transition: ".25s all ease",
+        borderRadius: "14px",
+        border: `3px solid ${THEME.black}`,
+        bg: THEME.white,
+        color: THEME.black,
+        fontWeight: "800",
+        letterSpacing: "-0.02em",
+        boxShadow: `5px 5px 0 ${THEME.black}`,
+        transition: ".2s all ease",
         boxSizing: "border-box",
         _focus: {
-          boxShadow: "none",
+          boxShadow: `5px 5px 0 ${THEME.black}`,
         },
         _active: {
-          boxShadow: "none",
+          transform: "translate(2px, 2px)",
+          boxShadow: `2px 2px 0 ${THEME.black}`,
+        },
+        _hover: {
+          transform: "translate(-2px, -2px)",
+          boxShadow: `7px 7px 0 ${THEME.black}`,
         },
       },
       variants: {
         outline: () => ({
-          borderRadius: "16px",
-        }),
-        brand: (props) => ({
-          bg: mode("brand.500", "brand.400")(props),
-          color: "white",
-          _focus: {
-            bg: mode("brand.500", "brand.400")(props),
+          bg: THEME.white,
+          color: THEME.black,
+          borderRadius: "14px",
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `5px 5px 0 ${THEME.black}`,
+          _hover: {
+            bg: THEME.yellow,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `7px 7px 0 ${THEME.black}`,
           },
           _active: {
-            bg: mode("brand.500", "brand.400")(props),
-          },
-          _hover: {
-            bg: mode("brand.600", "brand.400")(props),
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
           },
         }),
-        darkBrand: (props) => ({
-          bg: mode("brand.900", "brand.400")(props),
-          color: "white",
+
+        brand: () => ({
+          bg: THEME.yellow,
+          color: THEME.black,
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `5px 5px 0 ${THEME.black}`,
           _focus: {
-            bg: mode("brand.900", "brand.400")(props),
+            bg: THEME.yellow,
+            boxShadow: `5px 5px 0 ${THEME.black}`,
           },
           _active: {
-            bg: mode("brand.900", "brand.400")(props),
+            bg: THEME.orange,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
           },
           _hover: {
-            bg: mode("brand.800", "brand.400")(props),
+            bg: THEME.cyan,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `7px 7px 0 ${THEME.black}`,
           },
         }),
-        lightBrand: (props) => ({
-          bg: mode("#F2EFFF", "whiteAlpha.100")(props),
-          color: mode("brand.500", "white")(props),
+
+        darkBrand: () => ({
+          bg: THEME.black,
+          color: THEME.yellow,
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `5px 5px 0 ${THEME.cyan}`,
           _focus: {
-            bg: mode("#F2EFFF", "whiteAlpha.100")(props),
+            bg: THEME.black,
+            boxShadow: `5px 5px 0 ${THEME.cyan}`,
           },
           _active: {
-            bg: mode("secondaryGray.300", "whiteAlpha.100")(props),
+            bg: THEME.black,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.cyan}`,
           },
           _hover: {
-            bg: mode("secondaryGray.400", "whiteAlpha.200")(props),
+            bg: "#222222",
+            color: THEME.cyan,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `7px 7px 0 ${THEME.pink}`,
           },
         }),
-        light: (props) => ({
-          bg: mode("secondaryGray.300", "whiteAlpha.100")(props),
-          color: mode("secondaryGray.900", "white")(props),
+
+        lightBrand: () => ({
+          bg: THEME.soft,
+          color: THEME.black,
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `4px 4px 0 ${THEME.black}`,
           _focus: {
-            bg: mode("secondaryGray.300", "whiteAlpha.100")(props),
+            bg: THEME.soft,
+            boxShadow: `4px 4px 0 ${THEME.black}`,
           },
           _active: {
-            bg: mode("secondaryGray.300", "whiteAlpha.100")(props),
+            bg: THEME.yellow,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
           },
           _hover: {
-            bg: mode("secondaryGray.400", "whiteAlpha.200")(props),
+            bg: THEME.pink,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `6px 6px 0 ${THEME.black}`,
           },
         }),
-        action: (props) => ({
-          fontWeight: "500",
-          borderRadius: "50px",
-          bg: mode("secondaryGray.300", "brand.400")(props),
-          color: mode("brand.500", "white")(props),
+
+        light: () => ({
+          bg: THEME.white,
+          color: THEME.black,
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `4px 4px 0 ${THEME.black}`,
           _focus: {
-            bg: mode("secondaryGray.300", "brand.400")(props),
+            bg: THEME.white,
+            boxShadow: `4px 4px 0 ${THEME.black}`,
           },
-          _active: { bg: mode("secondaryGray.300", "brand.400")(props) },
+          _active: {
+            bg: THEME.green,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
+          },
           _hover: {
-            bg: mode("secondaryGray.200", "brand.400")(props),
+            bg: THEME.green,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `6px 6px 0 ${THEME.black}`,
           },
         }),
-        setup: (props) => ({
-          fontWeight: "500",
-          borderRadius: "50px",
-          bg: mode("transparent", "brand.400")(props),
-          border: mode("1px solid", "0px solid")(props),
-          borderColor: mode("secondaryGray.400", "transparent")(props),
-          color: mode("secondaryGray.900", "white")(props),
+
+        action: () => ({
+          fontWeight: "800",
+          borderRadius: "999px",
+          bg: THEME.cyan,
+          color: THEME.black,
+          border: `3px solid ${THEME.black}`,
+          boxShadow: `4px 4px 0 ${THEME.black}`,
           _focus: {
-            bg: mode("transparent", "brand.400")(props),
+            bg: THEME.cyan,
+            boxShadow: `4px 4px 0 ${THEME.black}`,
           },
-          _active: { bg: mode("transparent", "brand.400")(props) },
+          _active: {
+            bg: THEME.orange,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
+          },
           _hover: {
-            bg: mode("secondaryGray.100", "brand.400")(props),
+            bg: THEME.yellow,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `6px 6px 0 ${THEME.black}`,
+          },
+        }),
+
+        setup: () => ({
+          fontWeight: "800",
+          borderRadius: "999px",
+          bg: "transparent",
+          border: `3px solid ${THEME.black}`,
+          color: THEME.black,
+          boxShadow: `4px 4px 0 ${THEME.black}`,
+          _focus: {
+            bg: "transparent",
+            boxShadow: `4px 4px 0 ${THEME.black}`,
+          },
+          _active: {
+            bg: THEME.soft,
+            transform: "translate(2px, 2px)",
+            boxShadow: `2px 2px 0 ${THEME.black}`,
+          },
+          _hover: {
+            bg: THEME.yellow,
+            transform: "translate(-2px, -2px)",
+            boxShadow: `6px 6px 0 ${THEME.black}`,
           },
         }),
       },

@@ -14,13 +14,28 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react";
-import { MdPerson, MdLock, MdLocalPharmacy, MdHealing } from "react-icons/md";
+import {
+  MdPerson,
+  MdLock,
+  MdHealing,
+} from "react-icons/md";
 import axios from "axios";
 
 const API_URL = "https://dummyjson.com/auth/login";
-
-// Mode development: true = tanpa API (mock), false = dengan API real
 const MOCK_LOGIN = true;
+
+const THEME = {
+  yellow: "#F5FF63",
+  cyan: "#33DFFF",
+  pink: "#FF4FD8",
+  green: "#A7FF3D",
+  orange: "#FF8A00",
+  purple: "#C8A2FF",
+  black: "#111111",
+  white: "#FFFFFF",
+  soft: "#FFFDEB",
+  muted: "#666666",
+};
 
 export default function Login() {
   const [dataForm, setDataForm] = useState({
@@ -52,12 +67,11 @@ export default function Login() {
 
     setLoading(true);
 
-    // Mock login untuk development (tanpa API)
     if (MOCK_LOGIN) {
       setTimeout(() => {
-        // Cek credentials demo
         if (username === "emilys" && password === "emilyspass") {
           const mockToken = "mock-token-12345";
+
           const mockUser = {
             id: 1,
             username: "emilys",
@@ -68,16 +82,20 @@ export default function Login() {
 
           localStorage.setItem("adminToken", mockToken);
           localStorage.setItem("adminUser", JSON.stringify(mockUser));
+
           navigate("/admin/beranda");
         } else {
-          setError("Username atau password salah. (Demo: emilys / emilyspass)");
+          setError(
+            "Username atau password salah. (Demo: emilys / emilyspass)"
+          );
         }
+
         setLoading(false);
-      }, 1000); // Simulasi delay 1 detik
+      }, 1000);
+
       return;
     }
 
-    // Real API login (production)
     try {
       const response = await axios.post(
         API_URL,
@@ -110,7 +128,9 @@ export default function Login() {
       if (err.response?.status === 400 || err.response?.status === 401) {
         setError("Username atau password salah.");
       } else if (err.code === "ERR_NETWORK") {
-        setError("Koneksi gagal. Aktifkan MOCK_LOGIN di Login.jsx untuk mode offline.");
+        setError(
+          "Koneksi gagal. Aktifkan MOCK_LOGIN di Login.jsx untuk mode offline."
+        );
       } else {
         setError("Login gagal. Silakan coba lagi.");
       }
@@ -120,78 +140,94 @@ export default function Login() {
   };
 
   return (
-    <Box w="100%" maxW="430px" mx="auto">
+    <Box w="100%" maxW="390px" mx="auto" fontFamily="'Inter', sans-serif">
       <Box
-        bg="#FFFFFF"
-        border="5px solid #111"
-        borderRadius="28px"
-        boxShadow="14px 14px 0 #111"
-        p={{ base: "7", md: "9" }}
+        bg={THEME.white}
+        border={`3px solid ${THEME.black}`}
+        borderRadius="16px"
+        boxShadow={`6px 6px 0 ${THEME.black}`}
+        p={{ base: "24px", md: "28px" }}
         position="relative"
-        transform="rotate(-1deg)"
       >
         <Box
           position="absolute"
-          top="-20px"
-          right="24px"
-          bg="#FF6B6B"
-          color="#111"
-          border="3px solid #111"
-          boxShadow="5px 5px 0 #111"
-          px="5"
-          py="1"
-          borderRadius="12px"
+          top="14px"
+          left="14px"
+          right="14px"
+          h="8px"
+          bg={THEME.yellow}
+          border={`3px solid ${THEME.black}`}
+          borderRadius="999px"
+        />
+
+        <Box
+          position="absolute"
+          top="-12px"
+          right="18px"
+          bg={THEME.pink}
+          color={THEME.black}
+          border={`3px solid ${THEME.black}`}
+          boxShadow={`3px 3px 0 ${THEME.black}`}
+          px="12px"
+          py="5px"
+          borderRadius="10px"
           fontWeight="900"
-          fontSize="sm"
-          transform="rotate(4deg)"
+          fontSize="11px"
+          textTransform="uppercase"
         >
-          🔐 MASUK
+          Login
         </Box>
 
-        <Flex direction="column" align="center" mb="8">
+        <Flex direction="column" align="center" mb="28px" mt="8px">
           <Flex
             align="center"
             justify="center"
-            w="80px"
-            h="80px"
-            rounded="24px"
-            bg="#4ECDC4"
-            border="4px solid #111"
-            boxShadow="7px 7px 0 #111"
-            mb="5"
-            transform="rotate(3deg)"
+            w="68px"
+            h="68px"
+            bg={THEME.cyan}
+            border={`3px solid ${THEME.black}`}
+            borderRadius="14px"
+            boxShadow={`4px 4px 0 ${THEME.black}`}
+            mb="16px"
           >
-            <Icon as={MdHealing} w="36px" h="36px" color="#111" />
+            <Icon as={MdHealing} w="30px" h="30px" color={THEME.black} />
           </Flex>
 
           <Heading
-            color="#111"
-            fontSize="3xl"
+            color={THEME.black}
+            fontSize="30px"
             fontWeight="900"
-            letterSpacing="-1px"
-            mb="2"
+            letterSpacing="-1.5px"
+            mb="6px"
             textAlign="center"
+            textTransform="uppercase"
+            lineHeight="1"
           >
-            Apotek Sehat
+            Apotek Rustaf
           </Heading>
 
-          <Text color="gray.700" fontSize="sm" fontWeight="700" textAlign="center">
+          <Text
+            color={THEME.muted}
+            fontSize="12px"
+            fontWeight="800"
+            textAlign="center"
+          >
             Sistem Manajemen Apotek Modern
           </Text>
         </Flex>
 
         <form onSubmit={handleSubmit}>
-          <VStack spacing="5" align="stretch">
+          <VStack spacing="18px" align="stretch">
             {error && (
               <Box
-                p="3"
-                bg="#FFB3B3"
-                color="#111"
-                border="3px solid #111"
-                borderRadius="16px"
-                boxShadow="5px 5px 0 #111"
+                p="12px"
+                bg="#FFD6D6"
+                color={THEME.black}
+                border={`3px solid ${THEME.black}`}
+                borderRadius="12px"
+                boxShadow={`3px 3px 0 ${THEME.black}`}
                 textAlign="center"
-                fontSize="sm"
+                fontSize="12px"
                 fontWeight="900"
               >
                 {error}
@@ -200,19 +236,30 @@ export default function Login() {
 
             <FormControl>
               <FormLabel
-                color="#111"
-                ms="1"
-                fontSize="xs"
+                color={THEME.black}
+                mb="8px"
+                fontSize="11px"
                 fontWeight="900"
                 textTransform="uppercase"
-                letterSpacing="wider"
+                letterSpacing="1px"
               >
                 Username
               </FormLabel>
 
               <InputGroup>
-                <InputLeftElement pointerEvents="none" h="100%">
-                  <Icon as={MdPerson} color="#111" w="5" h="5" />
+                <InputLeftElement h="100%" pl="5px">
+                  <Flex
+                    w="34px"
+                    h="34px"
+                    align="center"
+                    justify="center"
+                    bg={THEME.cyan}
+                    border={`2px solid ${THEME.black}`}
+                    borderRadius="10px"
+                    boxShadow={`2px 2px 0 ${THEME.black}`}
+                  >
+                    <Icon as={MdPerson} color={THEME.black} w="16px" h="16px" />
+                  </Flex>
                 </InputLeftElement>
 
                 <Input
@@ -221,39 +268,57 @@ export default function Login() {
                   value={dataForm.username}
                   onChange={handleChange}
                   placeholder="emilys"
-                  bg="#F7F7F7"
-                  border="3px solid #111"
-                  color="#111"
-                  fontWeight="800"
-                  _placeholder={{ color: "gray.500" }}
-                  _hover={{ bg: "#FFFFFF", boxShadow: "4px 4px 0 #111" }}
-                  _focus={{
-                    bg: "#FFFFFF",
-                    borderColor: "#111",
-                    boxShadow: "5px 5px 0 #111",
+                  bg={THEME.white}
+                  border={`3px solid ${THEME.black}`}
+                  color={THEME.black}
+                  fontWeight="900"
+                  fontSize="13px"
+                  pl="52px"
+                  h="48px"
+                  borderRadius="12px"
+                  boxShadow={`3px 3px 0 ${THEME.black}`}
+                  _placeholder={{
+                    color: "#888",
+                    fontWeight: "800",
                   }}
-                  borderRadius="16px"
-                  h="54px"
-                  transition="all 0.2s"
+                  _hover={{
+                    bg: THEME.soft,
+                  }}
+                  _focus={{
+                    bg: THEME.white,
+                    borderColor: THEME.black,
+                    boxShadow: `4px 4px 0 ${THEME.black}`,
+                  }}
                 />
               </InputGroup>
             </FormControl>
 
             <FormControl>
               <FormLabel
-                color="#111"
-                ms="1"
-                fontSize="xs"
+                color={THEME.black}
+                mb="8px"
+                fontSize="11px"
                 fontWeight="900"
                 textTransform="uppercase"
-                letterSpacing="wider"
+                letterSpacing="1px"
               >
-                Kata Sandi
+                Password
               </FormLabel>
 
               <InputGroup>
-                <InputLeftElement pointerEvents="none" h="100%">
-                  <Icon as={MdLock} color="#111" w="5" h="5" />
+                <InputLeftElement h="100%" pl="5px">
+                  <Flex
+                    w="34px"
+                    h="34px"
+                    align="center"
+                    justify="center"
+                    bg={THEME.yellow}
+                    border={`2px solid ${THEME.black}`}
+                    borderRadius="10px"
+                    boxShadow={`2px 2px 0 ${THEME.black}`}
+                  >
+                    <Icon as={MdLock} color={THEME.black} w="16px" h="16px" />
+                  </Flex>
                 </InputLeftElement>
 
                 <Input
@@ -262,67 +327,112 @@ export default function Login() {
                   value={dataForm.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  bg="#F7F7F7"
-                  border="3px solid #111"
-                  color="#111"
-                  fontWeight="800"
-                  _placeholder={{ color: "gray.500", letterSpacing: "2px" }}
-                  _hover={{ bg: "#FFFFFF", boxShadow: "4px 4px 0 #111" }}
-                  _focus={{
-                    bg: "#FFFFFF",
-                    borderColor: "#111",
-                    boxShadow: "5px 5px 0 #111",
+                  bg={THEME.white}
+                  border={`3px solid ${THEME.black}`}
+                  color={THEME.black}
+                  fontWeight="900"
+                  fontSize="13px"
+                  pl="52px"
+                  h="48px"
+                  borderRadius="12px"
+                  boxShadow={`3px 3px 0 ${THEME.black}`}
+                  _placeholder={{
+                    color: "#888",
+                    letterSpacing: "2px",
+                    fontWeight: "800",
                   }}
-                  borderRadius="16px"
-                  h="54px"
-                  letterSpacing="2px"
-                  transition="all 0.2s"
+                  _hover={{
+                    bg: THEME.soft,
+                  }}
+                  _focus={{
+                    bg: THEME.white,
+                    borderColor: THEME.black,
+                    boxShadow: `4px 4px 0 ${THEME.black}`,
+                  }}
                 />
               </InputGroup>
             </FormControl>
 
             <Button
               type="submit"
-              bg="#4ECDC4"
-              color="#111"
-              h="56px"
-              border="3px solid #111"
-              borderRadius="16px"
+              bg={THEME.cyan}
+              color={THEME.black}
+              h="50px"
+              border={`3px solid ${THEME.black}`}
+              borderRadius="12px"
               fontWeight="900"
-              fontSize="md"
+              fontSize="13px"
+              textTransform="uppercase"
               isLoading={loading}
               loadingText="Memverifikasi..."
-              boxShadow="7px 7px 0 #111"
+              boxShadow={`4px 4px 0 ${THEME.black}`}
               _hover={{
-                bg: "#3FD9CF",
-                transform: "translate(-3px, -3px)",
-                boxShadow: "10px 10px 0 #111",
+                bg: THEME.pink,
+                transform: "translate(-1px, -1px)",
+                boxShadow: `5px 5px 0 ${THEME.black}`,
               }}
               _active={{
-                transform: "translate(4px, 4px)",
-                boxShadow: "3px 3px 0 #111",
+                transform: "translate(2px, 2px)",
+                boxShadow: `1px 1px 0 ${THEME.black}`,
               }}
-              mt="4"
-              transition="all 0.2s"
+              mt="6px"
+              transition="all 0.18s ease"
             >
               Masuk
             </Button>
           </VStack>
         </form>
 
-        <Box mt="8" pt="6" borderTop="3px solid #111" textAlign="center">
-          <Text fontSize="xs" color="#111" fontWeight="800" mb="2">
-            👋 Akun Demo:{" "}
-            <Text as="span" bg="#FFE66D" px="2" py="1" border="2px solid #111">
-              emilys
-            </Text>
-            {" / "}
-            <Text as="span" bg="#FFE66D" px="2" py="1" border="2px solid #111">
-              emilyspass
-            </Text>
+        <Box
+          mt="24px"
+          pt="18px"
+          borderTop={`3px solid ${THEME.black}`}
+          textAlign="center"
+        >
+          <Text
+            fontSize="11px"
+            color={THEME.black}
+            fontWeight="900"
+            mb="10px"
+          >
+            Demo Login
           </Text>
-          <Text fontSize="10px" color="gray.600" fontWeight="600">
-            © 2026 Apotek Sehat - Sistem Informasi Apotek
+
+          <Flex justify="center" gap="8px" wrap="wrap">
+            <Box
+              bg={THEME.yellow}
+              px="10px"
+              py="5px"
+              border={`2px solid ${THEME.black}`}
+              borderRadius="8px"
+              fontSize="11px"
+              fontWeight="900"
+              boxShadow={`2px 2px 0 ${THEME.black}`}
+            >
+              emilys
+            </Box>
+
+            <Box
+              bg={THEME.cyan}
+              px="10px"
+              py="5px"
+              border={`2px solid ${THEME.black}`}
+              borderRadius="8px"
+              fontSize="11px"
+              fontWeight="900"
+              boxShadow={`2px 2px 0 ${THEME.black}`}
+            >
+              emilyspass
+            </Box>
+          </Flex>
+
+          <Text
+            fontSize="10px"
+            color={THEME.muted}
+            fontWeight="700"
+            mt="14px"
+          >
+            © 2026 Apotek Rustaf
           </Text>
         </Box>
       </Box>

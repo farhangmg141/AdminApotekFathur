@@ -11,7 +11,6 @@ import {
   SimpleGrid,
   Icon,
   Badge,
-  Image,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -24,72 +23,92 @@ import {
   MdCheckCircle,
 } from "react-icons/md";
 import { motion } from "framer-motion";
+import { THEME } from "../theme/themeConstants";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
 const MotionFlex = motion(Flex);
 
-// Feature Card Component
 const FeatureCard = ({ icon, title, description, color, delay }) => (
   <MotionBox
-    bg="#FFFFFF"
-    border="4px solid #111"
-    borderRadius="24px"
-    boxShadow="8px 8px 0 #111"
-    p={6}
-    initial={{ opacity: 0, y: 30 }}
+    bg={THEME.white}
+    border={`3px solid ${THEME.black}`}
+    borderRadius="14px"
+    boxShadow={`4px 4px 0 ${THEME.black}`}
+    p={5}
+    initial={{ opacity: 0, y: 24 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay }}
+    transition={{ duration: 0.45, delay }}
     whileHover={{
-      y: -4,
-      boxShadow: "12px 12px 0 #111",
-      transition: { duration: 0.2 },
+      y: -2,
+      boxShadow: `6px 6px 0 ${THEME.black}`,
+      transition: { duration: 0.18 },
     }}
   >
     <Flex
-      w="60px"
-      h="60px"
+      w="48px"
+      h="48px"
       bg={color}
-      border="3px solid #111"
-      borderRadius="16px"
-      boxShadow="4px 4px 0 #111"
+      border={`3px solid ${THEME.black}`}
+      borderRadius="12px"
+      boxShadow={`3px 3px 0 ${THEME.black}`}
       align="center"
       justify="center"
       mb={4}
     >
-      <Icon as={icon} w="28px" h="28px" color="#111" />
+      <Icon as={icon} w="24px" h="24px" color={THEME.black} />
     </Flex>
-    <Text fontSize="lg" fontWeight="900" color="#111" mb={2}>
+
+    <Text
+      fontSize="15px"
+      fontWeight="900"
+      color={THEME.text}
+      mb={2}
+      textTransform="uppercase"
+      letterSpacing="-0.02em"
+    >
       {title}
     </Text>
-    <Text fontSize="sm" color="gray.700" fontWeight="600">
+
+    <Text
+      fontSize="13px"
+      color={THEME.black}
+      fontWeight="800"
+      lineHeight="1.6"
+    >
       {description}
     </Text>
   </MotionBox>
 );
 
-// Stat Card Component
 const StatCard = ({ number, label, color, delay }) => (
   <MotionBox
     bg={color}
-    border="4px solid #111"
-    borderRadius="20px"
-    boxShadow="6px 6px 0 #111"
-    p={5}
+    border={`3px solid ${THEME.black}`}
+    borderRadius="12px"
+    boxShadow={`4px 4px 0 ${THEME.black}`}
+    p={4}
     textAlign="center"
-    initial={{ opacity: 0, scale: 0.9 }}
+    initial={{ opacity: 0, scale: 0.94 }}
     animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.4, delay }}
+    transition={{ duration: 0.35, delay }}
     whileHover={{
       scale: 1.02,
-      boxShadow: "8px 8px 0 #111",
-      transition: { duration: 0.2 },
+      boxShadow: `5px 5px 0 ${THEME.black}`,
+      transition: { duration: 0.18 },
     }}
   >
-    <Text fontSize="3xl" fontWeight="900" color="#111">
+    <Text fontSize="28px" fontWeight="900" color={THEME.black} lineHeight="1">
       {number}
     </Text>
-    <Text fontSize="sm" fontWeight="700" color="#111" mt={1}>
+
+    <Text
+      fontSize="11px"
+      fontWeight="900"
+      color={THEME.black}
+      mt={2}
+      textTransform="uppercase"
+    >
       {label}
     </Text>
   </MotionBox>
@@ -99,118 +118,105 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <Box>
-      {/* Hero Section */}
-      <Container maxW="1200px" pt={{ base: 8, md: 16 }} pb={16} px={{ base: 4, md: 8 }}>
+    <Box
+      bg={THEME.background}
+      minH="100vh"
+      position="relative"
+      overflow="hidden"
+      fontFamily="'Inter', sans-serif"
+    >
+      <Box
+        position="absolute"
+        inset="0"
+        opacity="0.08"
+        bgImage="linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px)"
+        bgSize="28px 28px"
+        pointerEvents="none"
+      />
+
+      <Container
+        maxW="1200px"
+        pt={{ base: 10, md: 16 }}
+        pb={14}
+        px={{ base: 4, md: 8 }}
+        position="relative"
+        zIndex="1"
+      >
         <Flex
           direction={{ base: "column", lg: "row" }}
           align="center"
           justify="space-between"
-          gap={12}
+          gap={{ base: 10, lg: 14 }}
         >
-          {/* Hero Content */}
           <VStack
             align={{ base: "center", lg: "flex-start" }}
-            spacing={6}
-            maxW={{ base: "100%", lg: "550px" }}
+            spacing={5}
+            maxW={{ base: "100%", lg: "540px" }}
             textAlign={{ base: "center", lg: "left" }}
           >
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <Badge
+              bg={THEME.danger}
+              color={THEME.black}
+              border={`3px solid ${THEME.black}`}
+              px="12px"
+              py="7px"
+              borderRadius="10px"
+              fontSize="11px"
+              fontWeight="900"
+              boxShadow={`3px 3px 0 ${THEME.black}`}
             >
-              <Badge
-                bg="#FF6B6B"
-                color="#111"
-                border="3px solid #111"
-                px={4}
-                py={2}
-                borderRadius="12px"
-                fontSize="sm"
-                fontWeight="900"
-                boxShadow="4px 4px 0 #111"
-                mb={4}
-              >
-                🏥 SISTEM APOTEK MODERN
-              </Badge>
-            </MotionBox>
+              SISTEM APOTEK MODERN
+            </Badge>
 
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <Heading
+              fontSize={{ base: "38px", md: "52px", lg: "64px" }}
+              fontWeight="900"
+              color={THEME.text}
+              lineHeight="0.95"
+              letterSpacing="-3px"
             >
-              <Heading
-                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                fontWeight="900"
-                color="#111"
-                lineHeight="1.1"
-                letterSpacing="-2px"
-              >
-                Kelola Apotek Anda dengan{" "}
-                <Text as="span" color="#FF6B6B" position="relative">
-                  Mudah
-                  <Box
-                    position="absolute"
-                    bottom="-4px"
-                    left="0"
-                    right="0"
-                    h="6px"
-                    bg="#111"
-                    borderRadius="3px"
-                  />
-                </Text>{" "}
-                &{" "}
-                <Text as="span" color="#4ECDC4">
-                  Cepat
-                </Text>
-              </Heading>
-            </MotionBox>
-
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Text
-                fontSize={{ base: "md", md: "lg" }}
-                color="gray.800"
-                fontWeight="600"
-                maxW="480px"
-              >
-                Sistem manajemen apotek terintegrasi untuk mengelola stok obat,
-                resep pasien, dan data pelanggan dalam satu platform.
+              Kelola Apotek Dengan{" "}
+              <Text as="span" color={THEME.danger}>
+                Mudah
+              </Text>{" "}
+              &{" "}
+              <Text as="span" color={THEME.primary}>
+                Cepat
               </Text>
-            </MotionBox>
+            </Heading>
 
-            <MotionFlex
-              gap={4}
-              direction={{ base: "column", sm: "row" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+            <Text
+              fontSize={{ base: "14px", md: "16px" }}
+              color={THEME.black}
+              fontWeight="800"
+              maxW="500px"
+              lineHeight="1.7"
             >
+              Sistem manajemen apotek terintegrasi untuk mengelola stok obat,
+              transaksi, resep pasien, dan data pelanggan dalam satu dashboard.
+            </Text>
+
+            <MotionFlex gap={3} direction={{ base: "column", sm: "row" }}>
               <MotionButton
                 rightIcon={<MdArrowForward />}
-                bg="#111"
-                color="#FFFFFF"
-                size="lg"
-                h="60px"
-                px={8}
-                border="4px solid #111"
-                borderRadius="16px"
+                bg={THEME.black}
+                color={THEME.background}
+                h="50px"
+                px="22px"
+                border={`3px solid ${THEME.black}`}
+                borderRadius="12px"
                 fontWeight="900"
-                fontSize="lg"
-                boxShadow="8px 8px 0 #FF6B6B"
+                fontSize="13px"
+                textTransform="uppercase"
+                boxShadow={`4px 4px 0 ${THEME.danger}`}
                 _hover={{
-                  bg: "#333",
-                  transform: "translate(-3px, -3px)",
-                  boxShadow: "11px 11px 0 #FF6B6B",
+                  bg: THEME.black,
+                  transform: "translate(-1px, -1px)",
+                  boxShadow: `5px 5px 0 ${THEME.danger}`,
                 }}
                 _active={{
-                  transform: "translate(4px, 4px)",
-                  boxShadow: "4px 4px 0 #FF6B6B",
+                  transform: "translate(2px, 2px)",
+                  boxShadow: `2px 2px 0 ${THEME.danger}`,
                 }}
                 onClick={() => navigate("/login")}
                 whileTap={{ scale: 0.98 }}
@@ -219,25 +225,24 @@ const LandingPage = () => {
               </MotionButton>
 
               <MotionButton
-                variant="outline"
-                bg="#FFFFFF"
-                color="#111"
-                size="lg"
-                h="60px"
-                px={8}
-                border="4px solid #111"
-                borderRadius="16px"
+                bg={THEME.white}
+                color={THEME.black}
+                h="50px"
+                px="22px"
+                border={`3px solid ${THEME.black}`}
+                borderRadius="12px"
                 fontWeight="900"
-                fontSize="lg"
-                boxShadow="8px 8px 0 #4ECDC4"
+                fontSize="13px"
+                textTransform="uppercase"
+                boxShadow={`4px 4px 0 ${THEME.primary}`}
                 _hover={{
-                  bg: "#F7F7F7",
-                  transform: "translate(-3px, -3px)",
-                  boxShadow: "11px 11px 0 #4ECDC4",
+                  bg: THEME.soft,
+                  transform: "translate(-1px, -1px)",
+                  boxShadow: `5px 5px 0 ${THEME.primary}`,
                 }}
                 _active={{
-                  transform: "translate(4px, 4px)",
-                  boxShadow: "4px 4px 0 #4ECDC4",
+                  transform: "translate(2px, 2px)",
+                  boxShadow: `2px 2px 0 ${THEME.primary}`,
                 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -245,85 +250,77 @@ const LandingPage = () => {
               </MotionButton>
             </MotionFlex>
 
-            {/* Trust Indicators */}
-            <MotionFlex
-              gap={6}
-              mt={4}
-              wrap="wrap"
-              justify={{ base: "center", lg: "flex-start" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              {[
-                { icon: MdCheckCircle, text: "Aman & Terpercaya" },
-                { icon: MdCheckCircle, text: "24/7 Support" },
-              ].map((item, i) => (
-                <HStack key={i} spacing={2}>
-                  <Icon as={item.icon} color="#111" w="20px" h="20px" />
-                  <Text fontSize="sm" fontWeight="700" color="#111">
-                    {item.text}
+            <HStack spacing={4} wrap="wrap" justify={{ base: "center", lg: "flex-start" }}>
+              {["Aman & Terpercaya", "24/7 Support"].map((text) => (
+                <HStack key={text} spacing={2}>
+                  <Icon as={MdCheckCircle} color={THEME.black} w="18px" h="18px" />
+                  <Text fontSize="12px" fontWeight="900" color={THEME.black}>
+                    {text}
                   </Text>
                 </HStack>
               ))}
-            </MotionFlex>
+            </HStack>
           </VStack>
 
-          {/* Hero Visual */}
           <MotionBox
             position="relative"
-            initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.55, delay: 0.2 }}
           >
-            {/* Main Card */}
             <Box
-              bg="#FFFFFF"
-              border="5px solid #111"
-              borderRadius="32px"
-              boxShadow="16px 16px 0 #111"
-              p={8}
-              maxW="400px"
-              transform="rotate(-2deg)"
+              bg={THEME.white}
+              border={`3px solid ${THEME.black}`}
+              borderRadius="16px"
+              boxShadow={`6px 6px 0 ${THEME.black}`}
+              p={6}
+              maxW="380px"
             >
               <Flex
-                w="80px"
-                h="80px"
-                bg="#4ECDC4"
-                border="4px solid #111"
-                borderRadius="24px"
-                boxShadow="6px 6px 0 #111"
+                w="58px"
+                h="58px"
+                bg={THEME.primary}
+                border={`3px solid ${THEME.black}`}
+                borderRadius="12px"
+                boxShadow={`3px 3px 0 ${THEME.black}`}
                 align="center"
                 justify="center"
-                mb={6}
+                mb={5}
               >
-                <Icon as={MdLocalPharmacy} w="40px" h="40px" color="#111" />
+                <Icon as={MdLocalPharmacy} w="30px" h="30px" color={THEME.black} />
               </Flex>
 
-              <Text fontSize="2xl" fontWeight="900" color="#111" mb={4}>
+              <Text
+                fontSize="22px"
+                fontWeight="900"
+                color={THEME.black}
+                mb={4}
+                textTransform="uppercase"
+                letterSpacing="-0.04em"
+              >
                 Dashboard Apotek
               </Text>
 
               <VStack spacing={3} align="stretch">
                 {[
-                  { label: "Stok Obat", val: "1,234", color: "#FFE66D" },
-                  { label: "Resep Hari Ini", val: "56", color: "#FF6B6B" },
-                  { label: "Pelanggan", val: "892", color: "#4ECDC4" },
+                  { label: "Stok Obat", val: "1,234", color: THEME.background },
+                  { label: "Resep Hari Ini", val: "56", color: THEME.danger },
+                  { label: "Pelanggan", val: "892", color: THEME.primary },
                 ].map((stat, i) => (
                   <Flex
                     key={i}
                     bg={stat.color}
-                    border="3px solid #111"
-                    borderRadius="12px"
+                    border={`3px solid ${THEME.black}`}
+                    borderRadius="10px"
                     p={3}
                     justify="space-between"
                     align="center"
-                    boxShadow="3px 3px 0 #111"
+                    boxShadow={`3px 3px 0 ${THEME.black}`}
                   >
-                    <Text fontSize="sm" fontWeight="700" color="#111">
+                    <Text fontSize="13px" fontWeight="900" color={THEME.black}>
                       {stat.label}
                     </Text>
-                    <Text fontSize="lg" fontWeight="900" color="#111">
+                    <Text fontSize="18px" fontWeight="900" color={THEME.black}>
                       {stat.val}
                     </Text>
                   </Flex>
@@ -331,36 +328,33 @@ const LandingPage = () => {
               </VStack>
             </Box>
 
-            {/* Floating Badge */}
             <Box
               position="absolute"
-              top="-20px"
-              right="-30px"
-              bg="#FF6B6B"
-              border="4px solid #111"
-              borderRadius="20px"
-              boxShadow="6px 6px 0 #111"
-              px={4}
-              py={2}
-              transform="rotate(8deg)"
+              top="-14px"
+              right="-16px"
+              bg={THEME.danger}
+              border={`3px solid ${THEME.black}`}
+              borderRadius="10px"
+              boxShadow={`3px 3px 0 ${THEME.black}`}
+              px="12px"
+              py="6px"
             >
-              <Text fontSize="sm" fontWeight="900" color="#111">
-                Live!
+              <Text fontSize="12px" fontWeight="900" color={THEME.black}>
+                LIVE
               </Text>
             </Box>
           </MotionBox>
         </Flex>
       </Container>
 
-      {/* Stats Section */}
-      <Box bg="#111" py={12} borderTop="5px solid #111" borderBottom="5px solid #111">
+      <Box bg={THEME.black} py={10} borderY={`3px solid ${THEME.black}`} position="relative" zIndex="1">
         <Container maxW="1200px" px={{ base: 4, md: 8 }}>
-          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={6}>
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
             {[
-              { number: "50+", label: "Apotek Partner", color: "#FFE66D", delay: 0 },
-              { number: "10K+", label: "Obat Tersedia", color: "#4ECDC4", delay: 0.1 },
-              { number: "100K+", label: "Resep Diproses", color: "#FF6B6B", delay: 0.2 },
-              { number: "99.9%", label: "Uptime", color: "#FFFFFF", delay: 0.3 },
+              { number: "50+", label: "Apotek Partner", color: THEME.yellow, delay: 0 },
+              { number: "10K+", label: "Obat Tersedia", color: THEME.primary, delay: 0.1 },
+              { number: "100K+", label: "Resep Diproses", color: THEME.pink, delay: 0.2 },
+              { number: "99.9%", label: "Uptime", color: THEME.white, delay: 0.3 },
             ].map((stat, i) => (
               <StatCard key={i} {...stat} />
             ))}
@@ -368,87 +362,83 @@ const LandingPage = () => {
         </Container>
       </Box>
 
-      {/* Features Section */}
-      <Container maxW="1200px" py={20} px={{ base: 4, md: 8 }}>
-        <VStack spacing={4} textAlign="center" mb={16}>
+      <Container maxW="1200px" py={16} px={{ base: 4, md: 8 }} position="relative" zIndex="1">
+        <VStack spacing={4} textAlign="center" mb={10}>
           <Badge
-            bg="#4ECDC4"
-            border="3px solid #111"
-            px={4}
-            py={2}
-            borderRadius="12px"
-            fontSize="sm"
+            bg={THEME.primary}
+            border={`3px solid ${THEME.black}`}
+            px="12px"
+            py="7px"
+            borderRadius="10px"
+            fontSize="11px"
             fontWeight="900"
-            boxShadow="4px 4px 0 #111"
+            boxShadow={`3px 3px 0 ${THEME.black}`}
           >
             FITUR UNGGULAN
           </Badge>
+
           <Heading
-            fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+            fontSize={{ base: "30px", md: "42px" }}
             fontWeight="900"
-            color="#111"
+            color={THEME.black}
+            letterSpacing="-2px"
           >
             Semua yang Anda Butuhkan
           </Heading>
+
           <Text
-            fontSize={{ base: "md", md: "lg" }}
-            color="gray.800"
-            fontWeight="600"
+            fontSize={{ base: "14px", md: "16px" }}
+            color={THEME.black}
+            fontWeight="800"
             maxW="600px"
           >
             Kelola seluruh operasional apotek dengan mudah menggunakan sistem
-            yang terintegrasi
+            yang terintegrasi.
           </Text>
         </VStack>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
           {[
             {
               icon: MdMedication,
               title: "Manajemen Stok Obat",
-              description:
-                "Pantau stok obat real-time dengan notifikasi otomatis saat stok menipis.",
-              color: "#FFE66D",
+              description: "Pantau stok obat real-time dengan notifikasi otomatis.",
+              color: THEME.yellow,
               delay: 0,
             },
             {
               icon: MdLocalHospital,
               title: "Kelola Resep Pasien",
-              description:
-                "Simpan dan kelola resep digital dengan riwayat pembelian lengkap.",
-              color: "#FF6B6B",
+              description: "Simpan dan kelola resep digital dengan riwayat lengkap.",
+              color: THEME.pink,
               delay: 0.1,
             },
             {
               icon: MdSchedule,
               title: "Jadwal Kedaluwarsa",
-              description:
-                "Peringatan otomatis untuk obat yang akan kedaluwarsa.",
-              color: "#4ECDC4",
+              description: "Peringatan otomatis untuk obat yang akan kedaluwarsa.",
+              color: THEME.primary,
               delay: 0.2,
             },
             {
               icon: MdHealthAndSafety,
               title: "Konsultasi Farmasi",
-              description:
-                "Catat konsultasi dan rekomendasi untuk setiap pelanggan.",
-              color: "#FFE66D",
+              description: "Catat konsultasi dan rekomendasi untuk pelanggan.",
+              color: THEME.green,
               delay: 0.3,
             },
             {
               icon: MdLocalPharmacy,
               title: "Laporan Penjualan",
-              description:
-                "Analitik lengkap untuk memahami tren penjualan dan profit.",
-              color: "#FF6B6B",
+              description: "Analitik lengkap untuk memahami tren dan profit.",
+              color: THEME.orange,
               delay: 0.4,
             },
             {
               icon: MdMedication,
               title: "Multi Cabang",
-              description:
-                "Kelola beberapa cabang apotek dalam satu dashboard.",
-              color: "#4ECDC4",
+              description: "Kelola beberapa cabang apotek dalam satu dashboard.",
+              color: THEME.purple,
               delay: 0.5,
             },
           ].map((feature, i) => (
@@ -457,76 +447,76 @@ const LandingPage = () => {
         </SimpleGrid>
       </Container>
 
-      {/* CTA Section */}
-      <Box py={20} px={{ base: 4, md: 8 }}>
-        <Container maxW="900px">
+      <Box py={14} px={{ base: 4, md: 8 }} position="relative" zIndex="1">
+        <Container maxW="860px">
           <MotionBox
-            bg="#FFFFFF"
-            border="5px solid #111"
-            borderRadius="32px"
-            boxShadow="16px 16px 0 #111"
-            p={{ base: 8, md: 12 }}
+            bg={THEME.white}
+            border={`3px solid ${THEME.black}`}
+            borderRadius="16px"
+            boxShadow={`6px 6px 0 ${THEME.black}`}
+            p={{ base: 6, md: 10 }}
             textAlign="center"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
             <Badge
-              bg="#FFE66D"
-              border="3px solid #111"
-              px={4}
-              py={2}
-              borderRadius="12px"
-              fontSize="sm"
+              bg={THEME.background}
+              border={`3px solid ${THEME.black}`}
+              px="12px"
+              py="7px"
+              borderRadius="10px"
+              fontSize="11px"
               fontWeight="900"
-              boxShadow="4px 4px 0 #111"
+              boxShadow={`3px 3px 0 ${THEME.black}`}
               mb={4}
             >
               SIAP MULAI?
             </Badge>
 
             <Heading
-              fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+              fontSize={{ base: "28px", md: "40px" }}
               fontWeight="900"
-              color="#111"
+              color={THEME.black}
               mb={4}
+              letterSpacing="-2px"
             >
               Transformasi Digital Apotek Anda
             </Heading>
 
             <Text
-              fontSize={{ base: "md", md: "lg" }}
-              color="gray.700"
-              fontWeight="600"
+              fontSize={{ base: "14px", md: "16px" }}
+              color={THEME.black}
+              fontWeight="800"
               maxW="600px"
               mx="auto"
-              mb={8}
+              mb={7}
             >
-              Bergabung dengan 50+ apotek yang telah menggunakan sistem kami
-              untuk meningkatkan efisiensi operasional.
+              Bergabung dengan apotek yang telah meningkatkan efisiensi
+              operasional menggunakan sistem kami.
             </Text>
 
             <MotionButton
               rightIcon={<MdArrowForward />}
-              bg="#4ECDC4"
-              color="#111"
-              size="lg"
-              h="64px"
-              px={10}
-              border="4px solid #111"
-              borderRadius="16px"
+              bg={THEME.primary}
+              color={THEME.black}
+              h="52px"
+              px="24px"
+              border={`3px solid ${THEME.black}`}
+              borderRadius="12px"
               fontWeight="900"
-              fontSize="lg"
-              boxShadow="8px 8px 0 #111"
+              fontSize="13px"
+              textTransform="uppercase"
+              boxShadow={`4px 4px 0 ${THEME.black}`}
               _hover={{
-                bg: "#3DBDB4",
-                transform: "translate(-3px, -3px)",
-                boxShadow: "11px 11px 0 #111",
+                bg: THEME.danger,
+                transform: "translate(-1px, -1px)",
+                boxShadow: `5px 5px 0 ${THEME.black}`,
               }}
               _active={{
-                transform: "translate(4px, 4px)",
-                boxShadow: "4px 4px 0 #111",
+                transform: "translate(2px, 2px)",
+                boxShadow: `2px 2px 0 ${THEME.black}`,
               }}
               onClick={() => navigate("/login")}
               whileTap={{ scale: 0.98 }}

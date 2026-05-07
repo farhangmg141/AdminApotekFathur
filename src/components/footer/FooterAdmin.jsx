@@ -1,158 +1,108 @@
 import React from "react";
-import {
-  Flex,
-  Link,
-  List,
-  ListItem,
-  Text,
-  Box,
-} from "@chakra-ui/react";
+import { Flex, Link, List, ListItem, Text, Box } from "@chakra-ui/react";
+
+const THEME = {
+  black: "#111111",
+  white: "#FFFFFF",
+  yellow: "#F5FF63",
+  cyan: "#33DFFF",
+  pink: "#FF4FD8",
+  green: "#A7FF3D",
+  orange: "#FF8A00",
+  soft: "#FFFDEB",
+  muted: "#666666",
+};
 
 export default function Footer() {
+  const links = [
+    { label: "Support", bg: THEME.cyan },
+    { label: "License", bg: THEME.yellow },
+    { label: "Terms", bg: THEME.orange },
+    { label: "Blog", bg: THEME.green },
+  ];
+
   return (
-    <Box
-      mt="40px"
-      px={{ base: "16px", md: "24px" }}
-      pb="30px"
-    >
+    <Box mt="34px" px={{ base: "14px", md: "22px" }} pb="28px">
       <Flex
         direction={{ base: "column", xl: "row" }}
-        align={{ base: "center", xl: "center" }}
+        align="center"
         justify="space-between"
-        gap="18px"
-        bg="#FFFFFF"
-        border="4px solid #111"
-        borderRadius="24px"
-        boxShadow="8px 8px 0 #111"
-        px={{ base: "20px", md: "30px" }}
-        py="22px"
+        gap="16px"
+        bg={THEME.white}
+        border={`3px solid ${THEME.black}`}
+        borderRadius="14px"
+        boxShadow={`5px 5px 0 ${THEME.black}`}
+        px={{ base: "16px", md: "22px" }}
+        py="18px"
         wrap="wrap"
+        fontFamily="'Inter', sans-serif"
       >
-        {/* LEFT */}
         <Box>
           <Text
-            color="#111"
+            color={THEME.black}
             fontWeight="900"
-            fontSize={{ base: "sm", md: "md" }}
+            fontSize={{ base: "13px", md: "15px" }}
             textAlign={{ base: "center", xl: "left" }}
+            textTransform="uppercase"
+            letterSpacing="-0.02em"
           >
             © {new Date().getFullYear()} Dashboard Apotek Rustaf
           </Text>
 
           <Text
             mt="4px"
-            color="#666"
-            fontWeight="700"
-            fontSize="sm"
+            color={THEME.muted}
+            fontWeight="800"
+            fontSize="12px"
             textAlign={{ base: "center", xl: "left" }}
           >
             Sistem Manajemen Obat & Transaksi Apotek Modern
           </Text>
         </Box>
 
-        {/* CENTER */}
         <List
           display="flex"
-          gap={{ base: "10px", md: "16px" }}
+          gap={{ base: "9px", md: "12px" }}
           flexWrap="wrap"
           justifyContent="center"
         >
-          <ListItem>
-            <Link
-              fontWeight="900"
-              color="#111"
-              bg="#4ECDC4"
-              px="14px"
-              py="8px"
-              border="3px solid #111"
-              borderRadius="14px"
-              boxShadow="4px 4px 0 #111"
-              _hover={{
-                textDecoration: "none",
-                transform: "translate(-2px,-2px)",
-                boxShadow: "6px 6px 0 #111",
-              }}
-            >
-              Support
-            </Link>
-          </ListItem>
-
-          <ListItem>
-            <Link
-              fontWeight="900"
-              color="#111"
-              bg="#FFD93D"
-              px="14px"
-              py="8px"
-              border="3px solid #111"
-              borderRadius="14px"
-              boxShadow="4px 4px 0 #111"
-              _hover={{
-                textDecoration: "none",
-                transform: "translate(-2px,-2px)",
-                boxShadow: "6px 6px 0 #111",
-              }}
-            >
-              License
-            </Link>
-          </ListItem>
-
-          <ListItem>
-            <Link
-              fontWeight="900"
-              color="#111"
-              bg="#FF8E3C"
-              px="14px"
-              py="8px"
-              border="3px solid #111"
-              borderRadius="14px"
-              boxShadow="4px 4px 0 #111"
-              _hover={{
-                textDecoration: "none",
-                transform: "translate(-2px,-2px)",
-                boxShadow: "6px 6px 0 #111",
-              }}
-            >
-              Terms
-            </Link>
-          </ListItem>
-
-          <ListItem>
-            <Link
-              fontWeight="900"
-              color="#111"
-              bg="#B8F2E6"
-              px="14px"
-              py="8px"
-              border="3px solid #111"
-              borderRadius="14px"
-              boxShadow="4px 4px 0 #111"
-              _hover={{
-                textDecoration: "none",
-                transform: "translate(-2px,-2px)",
-                boxShadow: "6px 6px 0 #111",
-              }}
-            >
-              Blog
-            </Link>
-          </ListItem>
+          {links.map((item) => (
+            <ListItem key={item.label}>
+              <Link
+                fontWeight="900"
+                fontSize="12px"
+                color={THEME.black}
+                bg={item.bg}
+                px="13px"
+                py="7px"
+                border={`3px solid ${THEME.black}`}
+                borderRadius="10px"
+                boxShadow={`3px 3px 0 ${THEME.black}`}
+                textTransform="uppercase"
+                transition="all .18s ease"
+                _hover={{
+                  textDecoration: "none",
+                  bg: THEME.pink,
+                  transform: "translate(-1px,-1px)",
+                  boxShadow: `4px 4px 0 ${THEME.black}`,
+                }}
+              >
+                {item.label}
+              </Link>
+            </ListItem>
+          ))}
         </List>
 
-        {/* RIGHT */}
         <Box
-          bg="#111"
-          color="#fff"
-          px="16px"
-          py="10px"
-          borderRadius="16px"
-          border="3px solid #111"
-          boxShadow="4px 4px 0 #4ECDC4"
+          bg={THEME.black}
+          color={THEME.white}
+          px="14px"
+          py="9px"
+          borderRadius="12px"
+          border={`3px solid ${THEME.black}`}
+          boxShadow={`4px 4px 0 ${THEME.cyan}`}
         >
-          <Text
-            fontWeight="900"
-            fontSize="sm"
-            textAlign="center"
-          >
+          <Text fontWeight="900" fontSize="12px" textAlign="center">
             APOTEK • HEALTHCARE • DASHBOARD
           </Text>
         </Box>
