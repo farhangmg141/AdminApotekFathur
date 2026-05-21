@@ -5,6 +5,7 @@ import {
   MdRestaurantMenu,
   MdListAlt,
   MdPeople,
+  MdWidgets,
 } from 'react-icons/md';
 
 // Admin Imports (dari _archive/pertemuan6)
@@ -13,6 +14,9 @@ import MenuMakanan from './_archive/pertemuan6/views/admin/pasar';
 import PesananPelanggan from './_archive/pertemuan6/views/admin/tabel-data';
 import DaftarPelanggan from './_archive/pertemuan6/views/admin/profil';
 import ErrorView from './_archive/pertemuan6/views/admin/error';
+
+// Pages Imports
+import ComponentsPage from './pages/Components';
 
 const routes = [
   {
@@ -49,6 +53,13 @@ const routes = [
     path: '/pelanggan',
     icon: <Icon as={MdPeople} width="20px" height="20px" color="inherit" />,
     component: <DaftarPelanggan />,
+  },
+  {
+    name: 'Komponen UI',
+    layout: '/admin',
+    path: '/komponenui',
+    icon: <Icon as={MdWidgets} width="20px" height="20px" color="inherit" />,
+    component: <ComponentsPage />,
   },
 ];
 

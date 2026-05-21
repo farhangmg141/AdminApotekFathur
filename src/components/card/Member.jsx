@@ -1,53 +1,60 @@
-// Chakra imports
 import React from "react";
-import { Avatar, Flex, useColorModeValue, Icon, Text } from "@chakra-ui/react";
-// Custom components
-import Card from "components/card/Card.js";
+import { Avatar, Flex, Icon, Text } from "@chakra-ui/react";
+import Card from "components/card/Card";
 import TransparentMenu from "components/menu/TransparentMenu";
-// Custom icons
 import { IoEllipsisVertical } from "react-icons/io5";
+import { THEME } from "../../theme/themeConstants";
 
-export default function Default(props) {
+export default function Member(props) {
   const { avatar, name, job, ...rest } = props;
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const bg = useColorModeValue("white", "#1B254B");
-  const shadow = useColorModeValue(
-    "0px 18px 40px rgba(112, 144, 176, 0.12)",
-    "none"
-  );
 
   return (
-    <Card boxShadow={shadow} py='10px' bg={bg} {...rest}>
-      <Flex align='center'>
-        <Flex justifyContent='center' alignItems='center'>
+    <Card
+      p="16px"
+      transition="all 0.2s ease"
+      _hover={{
+        transform: "translate(-2px, -2px)",
+        boxShadow: `7px 7px 0 ${THEME.black || "#111"}`,
+      }}
+      {...rest}
+    >
+      <Flex align="center" justify="space-between" w="100%">
+        <Flex align="center" gap="14px">
           <Avatar
-            h={{ base: "48px", xl: "36px", "2xl": "48px" }}
-            w={{ base: "48px", xl: "36px", "2xl": "48px" }}
+            h="48px"
+            w="48px"
             src={avatar}
-            me='20px'
+            border={`3px solid ${THEME.black || "#111"}`}
+            boxShadow={`2px 2px 0 ${THEME.black || "#111"}`}
           />
-          <Flex direction='column' align='start'>
+          <Flex direction="column" align="start">
             <Text
-              color={textColor}
-              fontSize={{ base: "md", xl: "sm", "3xl": "md" }}
-              fontWeight='700'>
+              color={THEME.black || "#111"}
+              fontSize="15px"
+              fontWeight="900"
+              lineHeight="1.2"
+            >
               {name}
             </Text>
             <Text
-              color='secondaryGray.600'
-              textAlign='left'
-              fontSize={{ base: "sm", xl: "xs", "3xl": "sm" }}
-              fontWeight='400'>
+              color="#555"
+              fontSize="12px"
+              fontWeight="800"
+              mt="2px"
+            >
               {job}
             </Text>
           </Flex>
         </Flex>
 
         <TransparentMenu
-          ms='auto'
-          mb='0px'
           icon={
-            <Icon as={IoEllipsisVertical} w='24px' h='24px' color={textColor} />
+            <Icon
+              as={IoEllipsisVertical}
+              w="20px"
+              h="20px"
+              color={THEME.black || "#111"}
+            />
           }
         />
       </Flex>

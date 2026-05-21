@@ -1,62 +1,79 @@
-// Chakra imports
-// Chakra imports
-import {
-  Flex,
-  Stat,
-  StatLabel,
-  StatNumber,
-  useColorModeValue,
-  Text,
-} from "@chakra-ui/react";
-// Custom components
-import Card from "components/card/Card.js";
-// Custom icons
 import React from "react";
+import { Flex, Text, Box } from "@chakra-ui/react";
+import Card from "components/card/Card";
+import { THEME } from "../../theme/themeConstants";
 
-export default function Default(props) {
-  const { startContent, endContent, name, growth, value } = props;
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const textColorSecondary = "secondaryGray.600";
+export default function MiniStatistics(props) {
+  const { startContent, endContent, name, growth, value, bg = "#FFFFFF", ...rest } = props;
 
   return (
-    <Card py='15px'>
-      <Flex
-        my='auto'
-        h='100%'
-        align={{ base: "center", xl: "start" }}
-        justify={{ base: "center", xl: "center" }}>
-        {startContent}
-
-        <Stat my='auto' ms={startContent ? "18px" : "0px"}>
-          <StatLabel
-            lineHeight='100%'
-            color={textColorSecondary}
-            fontSize={{
-              base: "sm",
-            }}>
-            {name}
-          </StatLabel>
-          <StatNumber
-            color={textColor}
-            fontSize={{
-              base: "2xl",
-            }}>
-            {value}
-          </StatNumber>
-          {growth ? (
-            <Flex align='center'>
-              <Text color='green.500' fontSize='xs' fontWeight='700' me='5px'>
-                {growth}
-              </Text>
-              <Text color='secondaryGray.600' fontSize='xs' fontWeight='400'>
-                since last month
-              </Text>
+    <Card
+      bg={bg}
+      p="20px"
+      transition="all 0.2s ease"
+      _hover={{
+        transform: "translate(-2px, -2px)",
+        boxShadow: `7px 7px 0 ${THEME.black || "#111"}`,
+      }}
+      {...rest}
+    >
+      <Flex align="center" justify="space-between" w="100%" h="100%">
+        <Flex align="center" gap="14px">
+          {startContent && (
+            <Flex align="center" justify="center" flexShrink={0}>
+              {startContent}
             </Flex>
-          ) : null}
-        </Stat>
-        <Flex ms='auto' w='max-content'>
-          {endContent}
+          )}
+
+          <Box>
+            <Text
+              fontSize="12px"
+              fontWeight="900"
+              color="#555"
+              textTransform="uppercase"
+              letterSpacing="0.5px"
+              mb="4px"
+            >
+              {name}
+            </Text>
+            <Text
+              fontSize="26px"
+              fontWeight="900"
+              color={THEME.black || "#111"}
+              lineHeight="1.1"
+              letterSpacing="-0.5px"
+            >
+              {value}
+            </Text>
+
+            {growth && (
+              <Flex align="center" mt="8px" gap="6px">
+                <Text
+                  bg={THEME.success || "#A7FF3D"}
+                  color={THEME.black || "#111"}
+                  fontSize="10px"
+                  fontWeight="900"
+                  px="6px"
+                  py="2px"
+                  border={`1.5px solid ${THEME.black || "#111"}`}
+                  borderRadius="6px"
+                  boxShadow={`1px 1px 0 ${THEME.black || "#111"}`}
+                >
+                  {growth}
+                </Text>
+                <Text fontSize="10px" fontWeight="800" color="#666">
+                  bulan ini
+                </Text>
+              </Flex>
+            )}
+          </Box>
         </Flex>
+
+        {endContent && (
+          <Flex align="center" justify="center" flexShrink={0}>
+            {endContent}
+          </Flex>
+        )}
       </Flex>
     </Card>
   );

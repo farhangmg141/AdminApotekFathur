@@ -38,7 +38,8 @@ export default function HeaderLinks(props) {
       gap="10px"
       bg="#FFFFFF"
       flexWrap={secondary ? { base: "wrap", md: "nowrap" } : "nowrap"}
-      p="10px"
+      px="12px"
+      py="11px"
       border="4px solid #111"
       borderRadius="22px"
       boxShadow="7px 7px 0 #111"

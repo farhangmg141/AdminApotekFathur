@@ -43,17 +43,18 @@ export default function AdminNavbar(props) {
       border={`3px solid ${THEME.black}`}
       borderRadius="14px"
       boxShadow={scrolled ? `6px 6px 0 ${THEME.black}` : `4px 4px 0 ${THEME.black}`}
-      minH={{ base: "66px", md: "76px" }}
+      minH={{ base: "72px", md: "82px" }}
       mx="auto"
-      px={{ base: "12px", md: "18px" }}
-      py={{ base: "9px", md: "11px" }}
+      px={{ base: "14px", md: "20px" }}
+      py={{ base: "12px", md: "14px" }}
+      left={{ xl: "310px" }}
       right={{ base: "10px", md: "22px", xl: "26px" }}
       top={{ base: "10px", md: "14px", xl: "18px" }}
       w={{
         base: "calc(100vw - 20px)",
         md: "calc(100vw - 44px)",
-        xl: "calc(100vw - 340px)",
-        "2xl": "calc(100vw - 360px)",
+        xl: "calc(100vw - 336px)",
+        "2xl": "calc(100vw - 336px)",
       }}
       zIndex="30"
       pointerEvents="auto"

@@ -1,4 +1,4 @@
-// Chakra imports
+import React, { useState } from "react";
 import {
   AvatarGroup,
   Avatar,
@@ -9,139 +9,156 @@ import {
   Image,
   Link,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
-// Custom components
-import Card from "components/card/Card.js";
-// Assets
-import React, { useState } from "react";
+import Card from "components/card/Card";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
+import { THEME } from "../../theme/themeConstants";
 
 export default function NFT(props) {
-  const { image, name, author, bidders, download, currentbid } = props;
+  const { image, name, author, bidders = [], download = "#", currentbid, ...rest } = props;
   const [like, setLike] = useState(false);
-  const textColor = useColorModeValue("navy.700", "white");
-  const textColorBid = useColorModeValue("brand.500", "white");
+
   return (
-    <Card p='20px'>
-      <Flex direction={{ base: "column" }} justify='center'>
-        <Box mb={{ base: "20px", "2xl": "20px" }} position='relative'>
+    <Card
+      p="16px"
+      transition="all 0.2s ease"
+      _hover={{
+        transform: "translate(-2px, -2px)",
+        boxShadow: `7px 7px 0 ${THEME.black || "#111"}`,
+      }}
+      {...rest}
+    >
+      <Flex direction="column" justify="center">
+        {/* Framed Image Container */}
+        <Box
+          mb="16px"
+          position="relative"
+          border={`3px solid ${THEME.black || "#111"}`}
+          borderRadius="14px"
+          boxShadow={`3px 3px 0 ${THEME.black || "#111"}`}
+          overflow="hidden"
+          h="180px"
+          w="100%"
+        >
           <Image
             src={image}
-            w={{ base: "100%", "3xl": "100%" }}
-            h={{ base: "100%", "3xl": "100%" }}
-            borderRadius='20px'
+            w="100%"
+            h="100%"
+            objectFit="cover"
           />
+
+          {/* Neo-Brutalist Like Button */}
           <Button
-            position='absolute'
-            bg='white'
-            _hover={{ bg: "whiteAlpha.900" }}
-            _active={{ bg: "white" }}
-            _focus={{ bg: "white" }}
-            p='0px !important'
-            top='14px'
-            right='14px'
-            borderRadius='50%'
-            minW='36px'
-            h='36px'
-            onClick={() => {
+            position="absolute"
+            bg={like ? (THEME.danger || "#FF4FD8") : "#FFFFFF"}
+            _hover={{
+              bg: like ? (THEME.danger || "#FF4FD8") : "#FFFDEB",
+              transform: "translate(-1px, -1px)",
+              boxShadow: `3px 3px 0 ${THEME.black || "#111"}`,
+            }}
+            _active={{
+              transform: "translate(1px, 1px)",
+              boxShadow: `1px 1px 0 ${THEME.black || "#111"}`,
+            }}
+            p="0px !important"
+            top="10px"
+            right="10px"
+            border={`2px solid ${THEME.black || "#111"}`}
+            borderRadius="50%"
+            minW="34px"
+            h="34px"
+            boxShadow={`2px 2px 0 ${THEME.black || "#111"}`}
+            onClick={(e) => {
+              e.preventDefault();
               setLike(!like);
-            }}>
+            }}
+            transition="all 0.15s ease"
+          >
             <Icon
-              transition='0.2s linear'
-              w='20px'
-              h='20px'
+              w="18px"
+              h="18px"
               as={like ? IoHeart : IoHeartOutline}
-              color='brand.500'
+              color={THEME.black || "#111"}
             />
           </Button>
         </Box>
-        <Flex flexDirection='column' justify='space-between' h='100%'>
-          <Flex
-            justify='space-between'
-            direction={{
-              base: "row",
-              md: "column",
-              lg: "row",
-              xl: "column",
-              "2xl": "row",
-            }}
-            mb='auto'>
-            <Flex direction='column'>
+
+        {/* Info Area */}
+        <Flex direction="column" justify="space-between" h="100%">
+          <Flex justify="space-between" align="flex-start" mb="12px">
+            <Flex direction="column">
               <Text
-                color={textColor}
-                fontSize={{
-                  base: "xl",
-                  md: "lg",
-                  lg: "lg",
-                  xl: "lg",
-                  "2xl": "md",
-                  "3xl": "lg",
-                }}
-                mb='5px'
-                fontWeight='bold'
-                me='14px'>
+                color={THEME.black || "#111"}
+                fontSize="16px"
+                fontWeight="900"
+                lineHeight="1.2"
+                noOfLines={1}
+              >
                 {name}
               </Text>
               <Text
-                color='secondaryGray.600'
-                fontSize={{
-                  base: "sm",
-                }}
-                fontWeight='400'
-                me='14px'>
-                {author}
+                color="#555"
+                fontSize="12px"
+                fontWeight="800"
+                mt="2px"
+                noOfLines={1}
+              >
+                oleh {author}
               </Text>
             </Flex>
-            <AvatarGroup
-              max={3}
-              color={textColorBid}
-              size='sm'
-              mt={{
-                base: "0px",
-                md: "10px",
-                lg: "0px",
-                xl: "10px",
-                "2xl": "0px",
-              }}
-              fontSize='12px'>
-              {bidders.map((avt, key) => (
-                <Avatar key={key} src={avt} />
-              ))}
-            </AvatarGroup>
+
+            {bidders.length > 0 && (
+              <AvatarGroup size="sm" max={3}>
+                {bidders.map((avt, key) => (
+                  <Avatar
+                    key={key}
+                    src={avt}
+                    border={`2px solid ${THEME.black || "#111"}`}
+                  />
+                ))}
+              </AvatarGroup>
+            )}
           </Flex>
-          <Flex
-            align='start'
-            justify='space-between'
-            direction={{
-              base: "row",
-              md: "column",
-              lg: "row",
-              xl: "column",
-              "2xl": "row",
-            }}
-            mt='25px'>
-            <Text fontWeight='700' fontSize='sm' color={textColorBid}>
-              Current Bid: {currentbid}
-            </Text>
-            <Link
-              href={download}
-              mt={{
-                base: "0px",
-                md: "10px",
-                lg: "0px",
-                xl: "10px",
-                "2xl": "0px",
-              }}>
+
+          <Flex align="center" justify="space-between" mt="6px">
+            <Box>
+              <Text fontSize="9px" fontWeight="900" color="#666" textTransform="uppercase">
+                Bid Terkini
+              </Text>
+              <Text
+                fontWeight="900"
+                fontSize="14px"
+                color={THEME.black || "#111"}
+              >
+                {currentbid}
+              </Text>
+            </Box>
+
+            <Link href={download} style={{ textDecoration: "none" }}>
               <Button
-                variant='darkBrand'
-                color='white'
-                fontSize='sm'
-                fontWeight='500'
-                borderRadius='70px'
-                px='24px'
-                py='5px'>
-                Place Bid
+                bg={THEME.success || "#A7FF3D"}
+                color={THEME.black || "#111"}
+                fontSize="12px"
+                fontWeight="900"
+                textTransform="uppercase"
+                border={`2px solid ${THEME.black || "#111"}`}
+                borderRadius="8px"
+                boxShadow={`3px 3px 0 ${THEME.black || "#111"}`}
+                px="16px"
+                py="6px"
+                h="auto"
+                _hover={{
+                  bg: THEME.primary || "#33DFFF",
+                  transform: "translate(-1px, -1px)",
+                  boxShadow: `4px 4px 0 ${THEME.black || "#111"}`,
+                }}
+                _active={{
+                  transform: "translate(1px, 1px)",
+                  boxShadow: `2px 2px 0 ${THEME.black || "#111"}`,
+                }}
+                transition="all 0.15s ease"
+              >
+                Tawar
               </Button>
             </Link>
           </Flex>
