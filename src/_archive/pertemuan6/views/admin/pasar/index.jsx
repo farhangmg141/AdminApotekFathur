@@ -13,6 +13,13 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
   FormControl,
   FormLabel,
   Input,
@@ -817,25 +824,32 @@ export default function MenuMakanan() {
           </ModalContent>
         </Modal>
 
-        <Modal
+        <Drawer
           isOpen={isDetailOpen}
           onClose={onDetailClose}
-          isCentered
-          size="xl"
-          scrollBehavior="inside"
+          placement="right"
+          size="md"
         >
-          <ModalOverlay bg="rgba(17,17,17,0.55)" backdropFilter="blur(5px)" />
-          <ModalContent
+          <DrawerOverlay bg="rgba(17,17,17,0.55)" backdropFilter="blur(5px)" />
+          <DrawerContent
             bg={THEME.softYellow}
-            border="4px solid #111"
-            borderRadius="24px"
-            boxShadow="10px 10px 0 #111"
-            maxH="90vh"
+            borderLeft="4px solid #111"
+            boxShadow="-10px 0 0 #111"
+            fontFamily="'Inter', sans-serif"
           >
-            <ModalHeader fontWeight="900" pr="48px">
+            <DrawerCloseButton
+              bg={THEME.pink}
+              border="3px solid #111"
+              borderRadius="12px"
+              boxShadow="3px 3px 0 #111"
+              top="16px"
+              right="16px"
+              zIndex="3"
+            />
+            <DrawerHeader fontWeight="900" borderBottom="4px solid #111" bg="#FFFFFF" py="6" pr="48px">
               {detailObat ? (
                 <Box>
-                  <Text fontSize="xl">{detailObat.name}</Text>
+                  <Text fontSize="xl" color={THEME.textDark}>{detailObat.name}</Text>
                   <HStack mt="3" flexWrap="wrap" spacing="10px">
                     <Badge
                       bg={categoryColor[detailObat.kategori]}
@@ -861,34 +875,29 @@ export default function MenuMakanan() {
                     >
                       {detailObat.status}
                     </Badge>
-                    <Text fontWeight="900" fontSize="md">
+                    <Text fontWeight="900" fontSize="md" color={THEME.textDark}>
                       {formatIDR(detailObat.harga)}
                     </Text>
                   </HStack>
                 </Box>
               ) : (
-                "Detail obat"
+                "Detail Obat"
               )}
-            </ModalHeader>
-            <ModalCloseButton
-              bg={THEME.pink}
-              border="3px solid #111"
-              borderRadius="12px"
-              boxShadow="3px 3px 0 #111"
-            />
+            </DrawerHeader>
 
-            <ModalBody maxH="calc(90vh - 140px)" overflowY="auto" pb="6">
+            <DrawerBody overflowY="auto" py="6">
               {detailObat && (
                 <>
                   {detailObat.image ? (
                     <Image
                       src={detailObat.image}
                       w="100%"
-                      maxH="200px"
+                      maxH="220px"
                       objectFit="cover"
                       borderRadius="16px"
                       border="3px solid #111"
-                      mb="5"
+                      boxShadow="4px 4px 0 #111"
+                      mb="6"
                     />
                   ) : null}
 
@@ -918,9 +927,9 @@ export default function MenuMakanan() {
                   ))}
                 </>
               )}
-            </ModalBody>
+            </DrawerBody>
 
-            <ModalFooter>
+            <DrawerFooter borderTop="4px solid #111" bg="#FFFFFF" gap="3">
               <Button
                 bg={THEME.cyan}
                 border="3px solid #111"
@@ -932,23 +941,32 @@ export default function MenuMakanan() {
                   if (detailObat) handleOpenForm(detailObat);
                 }}
                 isDisabled={!detailObat}
+                _hover={{
+                  bg: THEME.pink,
+                  transform: "translate(-2px, -2px)",
+                  boxShadow: "6px 6px 0 #111",
+                }}
               >
                 Edit obat ini
               </Button>
               <Button
-                ml={3}
                 onClick={onDetailClose}
                 bg={THEME.cardBg}
                 border="3px solid #111"
                 borderRadius="14px"
                 boxShadow="4px 4px 0 #111"
                 fontWeight="900"
+                _hover={{
+                  bg: THEME.cyan,
+                  transform: "translate(-2px, -2px)",
+                  boxShadow: "6px 6px 0 #111",
+                }}
               >
                 Tutup
               </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
 
         <AlertDialog
           isOpen={isAlertOpen}

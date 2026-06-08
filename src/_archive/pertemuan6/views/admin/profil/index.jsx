@@ -32,6 +32,13 @@ import {
   Stat,
   StatLabel,
   StatNumber,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
   Text,
 } from "@chakra-ui/react";
 import PageHeader from "components/pageHeader/PageHeader.jsx";
@@ -354,9 +361,63 @@ export default function DaftarPasienApotek() {
                           border="2px solid #111"
                           fontWeight="900"
                         />
-                        <Text color="#111" fontWeight="900">
-                          {patient.patientName}
-                        </Text>
+                        <Popover trigger="click" placement="bottom-start">
+                          <PopoverTrigger>
+                            <Text
+                              color="#111"
+                              fontWeight="900"
+                              cursor="pointer"
+                              textDecoration="underline"
+                              textDecorationStyle="dashed"
+                              textDecorationColor="#111"
+                              _hover={{ color: THEME.pink }}
+                            >
+                              {patient.patientName}
+                            </Text>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            bg={THEME.cardBg}
+                            border="3px solid #111"
+                            boxShadow="4px 4px 0 #111"
+                            borderRadius="14px"
+                            p="4"
+                            zIndex="popover"
+                          >
+                            <PopoverArrow border="1px solid #111" bg={THEME.cardBg} />
+                            <PopoverCloseButton border="2px solid #111" borderRadius="8px" bg={THEME.pink} size="sm" />
+                            <PopoverHeader borderBottom="2px solid #111" fontWeight="900" pb="2" fontSize="sm" color={THEME.textDark}>
+                              PROFIL PASIEN
+                            </PopoverHeader>
+                            <PopoverBody pt="3" px="0">
+                              <Text fontSize="xs" fontWeight="900" color={THEME.textMuted} mb="1">ID PASIEN</Text>
+                              <Text fontSize="sm" fontWeight="800" color={THEME.textDark} mb="3">{patient.id}</Text>
+
+                              <Text fontSize="xs" fontWeight="900" color={THEME.textMuted} mb="1">KONTAK</Text>
+                              <Text fontSize="sm" fontWeight="800" color={THEME.textDark} mb="1">{patient.email}</Text>
+                              <Text fontSize="sm" fontWeight="800" color={THEME.textDark} mb="3">{patient.phone}</Text>
+
+                              <Text fontSize="xs" fontWeight="900" color={THEME.textMuted} mb="1">KATEGORI</Text>
+                              <Badge
+                                bg={categoryColor[patient.category]}
+                                color="#111"
+                                border="2px solid #111"
+                                borderRadius="8px"
+                                px="8px"
+                                py="2px"
+                                fontWeight="900"
+                              >
+                                {patient.category}
+                              </Badge>
+
+                              <Text fontSize="xs" fontWeight="900" color={THEME.textMuted} mt="3" mb="1">CATATAN MEDIS</Text>
+                              <Text fontSize="xs" fontWeight="800" color={THEME.textDark}>
+                                {patient.category === "BPJS" ? "Verifikasi rujukan aktif. Riwayat Alergi: N/A." : 
+                                 patient.category === "Member" ? "Member loyal apotek. Berhak mendapat diskon obat resep 10%." : 
+                                 "Pasien umum. Pembayaran tunai / e-wallet."}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Popover>
                       </Flex>
                     </Td>
 

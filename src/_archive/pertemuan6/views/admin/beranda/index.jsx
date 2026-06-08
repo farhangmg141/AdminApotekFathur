@@ -10,6 +10,11 @@ import {
   InputGroup,
   InputLeftElement,
   Icon,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from "@chakra-ui/react";
 import PageHeader from "components/pageHeader/PageHeader.jsx";
 import {
@@ -419,6 +424,62 @@ export default function DashboardApotek() {
           >
             ✓ SYSTEM STATUS: STABLE
           </Badge>
+        </Box>
+
+        <Box
+          mt="32px"
+          bg={cardBg}
+          border="4px solid #111"
+          p={{ base: "24px", md: "30px" }}
+          borderRadius="24px"
+          boxShadow="8px 8px 0 #111"
+        >
+          <Text fontSize="21px" fontWeight="900" color={textDark} mb="20px">
+            PANDUAN OPERASIONAL & FAQ APOTEK
+          </Text>
+          <Accordion allowToggle>
+            <AccordionItem border="3px solid #111" borderRadius="14px" bg="#FFFFFF" mb="14px" overflow="hidden" boxShadow="4px 4px 0 #111">
+              <h2>
+                <AccordionButton p="16px" _hover={{ bg: softYellow }} _expanded={{ bg: accentCyan }}>
+                  <Box flex="1" textAlign="left" fontWeight="900" fontSize="14px" color={textDark}>
+                    Bagaimana alur penerimaan resep obat di apotek?
+                  </Box>
+                  <AccordionIcon color={textDark} />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4} pt={4} px="16px" borderTop="3px solid #111" bg="#FFFFFF" fontWeight="800" fontSize="13px" color={textMuted}>
+                Resep dimasukkan oleh petugas di menu "Resep Pasien". Setelah itu apoteker memverifikasi persediaan obat di menu "Daftar Obat". Jika stok cukup, status transaksi diubah menjadi "Selesai" dan stok obat akan terpotong secara otomatis di sistem CRM.
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem border="3px solid #111" borderRadius="14px" bg="#FFFFFF" mb="14px" overflow="hidden" boxShadow="4px 4px 0 #111">
+              <h2>
+                <AccordionButton p="16px" _hover={{ bg: softYellow }} _expanded={{ bg: accentGreen }}>
+                  <Box flex="1" textAlign="left" fontWeight="900" fontSize="14px" color={textDark}>
+                    Apa tindakan yang harus dilakukan jika stok obat berstatus "Habis"?
+                  </Box>
+                  <AccordionIcon color={textDark} />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4} pt={4} px="16px" borderTop="3px solid #111" bg="#FFFFFF" fontWeight="800" fontSize="13px" color={textMuted}>
+                Segera klik tombol sunting (ikon pensil kuning) pada obat terkait di menu "Daftar Obat" untuk memperbarui jumlah stok setelah pengadaan baru tiba, atau ubah status produk menjadi "Habis" agar petugas kasir/dokter tidak meresepkannya sementara waktu.
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem border="3px solid #111" borderRadius="14px" bg="#FFFFFF" overflow="hidden" boxShadow="4px 4px 0 #111">
+              <h2>
+                <AccordionButton p="16px" _hover={{ bg: softYellow }} _expanded={{ bg: accentPink }}>
+                  <Box flex="1" textAlign="left" fontWeight="900" fontSize="14px" color={textDark}>
+                    Bagaimana cara mendaftarkan pasien dengan kategori BPJS atau Member?
+                  </Box>
+                  <AccordionIcon color={textDark} />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4} pt={4} px="16px" borderTop="3px solid #111" bg="#FFFFFF" fontWeight="800" fontSize="13px" color={textMuted}>
+                Buka menu "Daftar Pasien", lalu pilih tombol "Tambah Pasien" di pojok kanan atas. Masukkan nama, email, nomor telepon, dan pastikan untuk memilih Kategori Pasien yang sesuai (Umum, BPJS, atau Member) untuk pencatatan profil medis dan program diskon yang terintegrasi.
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </Box>
       </Box>
     </Box>
