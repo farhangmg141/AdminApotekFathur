@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -11,6 +11,25 @@ import {
   SimpleGrid,
   Icon,
   Badge,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,9 +40,14 @@ import {
   MdSchedule,
   MdArrowForward,
   MdCheckCircle,
+  MdMenu,
+  MdPeople,
+  MdAttachMoney,
+  MdInfo,
 } from "react-icons/md";
 import { motion } from "framer-motion";
 import { THEME } from "../theme/themeConstants";
+import { NeoStatCard } from "components/ui";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
@@ -116,6 +140,7 @@ const StatCard = ({ number, label, color, delay }) => (
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
 
   return (
     <Box
@@ -125,6 +150,66 @@ const LandingPage = () => {
       overflow="hidden"
       fontFamily="'Inter', sans-serif"
     >
+      {/* ===== DRAWER — Mobile Navigation ===== */}
+      <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
+        <DrawerOverlay />
+        <DrawerContent
+          bg={THEME.white}
+          border={`3px solid ${THEME.black}`}
+          boxShadow={`6px 0 0 ${THEME.black}`}
+          fontFamily="'Inter', sans-serif"
+        >
+          <DrawerCloseButton fontWeight="900" />
+          <DrawerHeader
+            borderBottom={`3px solid ${THEME.black}`}
+            fontSize="14px"
+            fontWeight="900"
+            textTransform="uppercase"
+            bg={THEME.primary}
+          >
+            🏥 Apotek Sehat
+          </DrawerHeader>
+          <DrawerBody pt={4}>
+            <VStack align="stretch" spacing={3}>
+              {["Dashboard", "Daftar Obat", "Transaksi", "Pasien", "Laporan"].map((item) => (
+                <Button
+                  key={item}
+                  bg={THEME.white}
+                  border={`2px solid ${THEME.black}`}
+                  borderRadius="10px"
+                  fontWeight="900"
+                  fontSize="13px"
+                  textTransform="uppercase"
+                  boxShadow={`3px 3px 0 ${THEME.black}`}
+                  _hover={{ bg: THEME.primary, transform: "translate(-1px,-1px)" }}
+                  onClick={onDrawerClose}
+                  justifyContent="flex-start"
+                >
+                  {item}
+                </Button>
+              ))}
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+
+      {/* Tombol Buka Drawer (Mobile Nav) */}
+      <Box position="fixed" top="16px" left="16px" zIndex="100" display={{ base: "block", md: "none" }}>
+        <Button
+          onClick={onDrawerOpen}
+          bg={THEME.primary}
+          border={`3px solid ${THEME.black}`}
+          borderRadius="12px"
+          boxShadow={`3px 3px 0 ${THEME.black}`}
+          p="10px"
+          minW="0"
+          h="auto"
+          _hover={{ transform: "translate(-1px,-1px)", boxShadow: `4px 4px 0 ${THEME.black}` }}
+        >
+          <Icon as={MdMenu} w="22px" h="22px" color={THEME.black} />
+        </Button>
+      </Box>
+
       <Box
         position="absolute"
         inset="0"
@@ -347,6 +432,56 @@ const LandingPage = () => {
         </Flex>
       </Container>
 
+      {/* ===== NEOSTATCARD — Statistik Dashboard ===== */}
+      <Box py={10} px={{ base: 4, md: 8 }} position="relative" zIndex="1">
+        <Container maxW="1200px">
+          <Flex align="center" gap={3} mb={6}>
+            <Text fontSize="13px" fontWeight="900" textTransform="uppercase" color={THEME.black}>
+              📊 Statistik Real-Time
+            </Text>
+            {/* ===== POPOVER — Info tooltip NeoStatCard ===== */}
+            <Popover placement="right">
+              <PopoverTrigger>
+                <Box
+                  as="button"
+                  bg={THEME.primary}
+                  border={`2px solid ${THEME.black}`}
+                  borderRadius="8px"
+                  boxShadow={`2px 2px 0 ${THEME.black}`}
+                  p="4px"
+                  cursor="pointer"
+                  _hover={{ transform: "translate(-1px,-1px)", boxShadow: `3px 3px 0 ${THEME.black}` }}
+                >
+                  <Icon as={MdInfo} w="16px" h="16px" color={THEME.black} />
+                </Box>
+              </PopoverTrigger>
+              <PopoverContent
+                bg={THEME.white}
+                border={`3px solid ${THEME.black}`}
+                borderRadius="12px"
+                boxShadow={`4px 4px 0 ${THEME.black}`}
+                fontFamily="'Inter', sans-serif"
+                _focus={{ outline: "none" }}
+              >
+                <PopoverArrow bg={THEME.white} />
+                <PopoverCloseButton fontWeight="900" />
+                <PopoverHeader fontWeight="900" fontSize="12px" textTransform="uppercase" borderBottom={`2px solid ${THEME.black}`}>
+                  ℹ️ Info Statistik
+                </PopoverHeader>
+                <PopoverBody fontSize="12px" fontWeight="800" color={THEME.black}>
+                  Data statistik diperbarui setiap hari. Klik kartu untuk melihat laporan detail.
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </Flex>
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={10}>
+            <NeoStatCard label="Total Pasien" value="1,240" trend="up" trendVal="+12%" color={THEME.primary} icon={<Icon as={MdPeople} />} />
+            <NeoStatCard label="Stok Obat" value="3,891" trend="down" trendVal="-5%" color={THEME.pink} icon={<Icon as={MdMedication} />} />
+            <NeoStatCard label="Pendapatan" value="Rp 4.5M" trend="up" trendVal="+18.5%" color="#A7FF3D" icon={<Icon as={MdAttachMoney} />} />
+          </SimpleGrid>
+        </Container>
+      </Box>
+
       <Box bg={THEME.black} py={10} borderY={`3px solid ${THEME.black}`} position="relative" zIndex="1">
         <Container maxW="1200px" px={{ base: 4, md: 8 }}>
           <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
@@ -445,6 +580,66 @@ const LandingPage = () => {
             <FeatureCard key={i} {...feature} />
           ))}
         </SimpleGrid>
+      </Container>
+
+      {/* ===== ACCORDION — FAQ Apotek ===== */}
+      <Container maxW="860px" py={12} px={{ base: 4, md: 8 }} position="relative" zIndex="1">
+        <VStack spacing={3} textAlign="center" mb={8}>
+          <Badge
+            bg={THEME.yellow}
+            border={`3px solid ${THEME.black}`}
+            px="12px" py="7px"
+            borderRadius="10px"
+            fontSize="11px"
+            fontWeight="900"
+            boxShadow={`3px 3px 0 ${THEME.black}`}
+          >
+            FAQ
+          </Badge>
+          <Heading fontSize={{ base: "26px", md: "36px" }} fontWeight="900" color={THEME.black} letterSpacing="-2px">
+            Pertanyaan Umum
+          </Heading>
+        </VStack>
+        <Accordion allowToggle>
+          {[
+            { q: "Apakah sistem ini bisa digunakan oleh beberapa apoteker?", a: "Ya, sistem mendukung multi-user dengan hak akses berbeda untuk apoteker, kasir, dan manajer." },
+            { q: "Bagaimana cara import data stok obat yang sudah ada?", a: "Anda bisa import via file Excel (.xlsx) dari menu Pengaturan → Import Data. Format template tersedia di halaman tersebut." },
+            { q: "Apakah ada laporan penjualan otomatis?", a: "Ya, laporan harian, mingguan, dan bulanan tersedia secara otomatis dan bisa diunduh dalam format PDF atau Excel." },
+            { q: "Bagaimana keamanan data pasien?", a: "Data dienkripsi dan disimpan di server aman. Hanya pengguna dengan izin yang bisa mengakses data pasien." },
+          ].map((faq, i) => (
+            <AccordionItem
+              key={i}
+              border={`3px solid ${THEME.black}`}
+              borderRadius="12px"
+              mb="12px"
+              overflow="hidden"
+              boxShadow={`4px 4px 0 ${THEME.black}`}
+            >
+              <AccordionButton
+                p="16px"
+                _hover={{ bg: THEME.yellow }}
+                _expanded={{ bg: THEME.primary }}
+                fontWeight="900"
+                fontSize="14px"
+                textAlign="left"
+              >
+                <Box flex="1" mr={2}>{faq.q}</Box>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel
+                borderTop={`3px solid ${THEME.black}`}
+                bg={THEME.white}
+                px="16px"
+                py="14px"
+                fontSize="13px"
+                fontWeight="800"
+                color={THEME.black}
+              >
+                {faq.a}
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </Container>
 
       <Box py={14} px={{ base: 4, md: 8 }} position="relative" zIndex="1">
