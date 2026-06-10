@@ -18,6 +18,7 @@ export { default as NeoProgress } from "../neo/NeoProgress";
 export { default as NeoSlider } from "../neo/NeoSlider";
 export { default as NeoBadge } from "../neo/NeoBadge";
 export { default as NeoTooltip } from "../neo/NeoTooltip";
+export { default as NeoStatCard } from "../neo/NeoStatCard";
 
 export { default as PageHeader } from "../pageHeader/PageHeader";
 export { default as IconBox } from "../icons/IconBox";
